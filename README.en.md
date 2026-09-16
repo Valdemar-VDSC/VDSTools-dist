@@ -1,3 +1,5 @@
+![VDSTools — native macOS for Xojo, in pure Xojo](assets/banner-en.png)
+
 *[Version française : [README.md](README.md)]*
 
 # VDSTools

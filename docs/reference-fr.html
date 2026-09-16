@@ -476,7 +476,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <h3>VDSLicence</h3>
 <span class="kind">classe</span>
 </header>
-<p class="lede">Le contrôle de licence. <strong>L'exécution depuis l'IDE est libre</strong> : la vérification est posée derrière <code>#If DebugBuild</code>, donc elle n'est même pas compilée sous l'IDE. Une application CONSTRUITE sans licence valide s'exécute, mais <code>NativeWindowChrome.Install</code> y pose un filigrane.</p>
+<p class="lede">Le contrôle de licence. <strong>L'exécution depuis l'IDE est libre</strong> : la vérification est posée derrière <code>#If DebugBuild</code>, donc elle n'est même pas compilée sous l'IDE. Une application CONSTRUITE sans licence valide s'exécute, mais <strong>toute fenêtre qui emploie VDSTools</strong> porte une mention — chrome, contrôle posé dans l'IDE ou vue AppKit hébergée. <strong>Une seule exception</strong> : l'application de démonstration de l'éditeur, reconnue à son IDENTIFIANT de paquet, sans clé — une clé posée dans une application distribuée se lit dans son binaire et sert ailleurs telle quelle.</p>
 <div class="block"><h4>Méthodes</h4><dl class="api">
 <dt><code class="sig">Shared Sub SetLicence(licensee As String, key As String)</code></dt>
 <dd>À appeler dans <code>App.Opening</code>, AVANT qu'une fenêtre ne soit habillée. Le nom doit être recopié EXACTEMENT tel qu'il figure sur la licence : il entre dans le calcul du code, une espace en trop suffit à le refuser. Deux chaînes vides = pas de licence.</dd>
@@ -487,7 +487,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dt><code class="sig">Shared Function MakeLicence(licensee As String, majorCovered As Integer) As String</code></dt>
 <dd>Fabrique une clé — l'affaire du générateur, pas de l'application. Clé de 33 caractères, <code>VDS01-XXXXXX-…</code> : HMAC-SHA256 tronqué à 120 bits, en base32 sans les lettres I, L, O ni U.</dd>
 <dt><code class="sig">Shared Sub ApplyWatermark(window As Ptr)</code></dt>
-<dd>Le filigrane des versions non licenciées. La vue posée rend <code>Nil</code> depuis <code>hitTest:</code> : elle ne prend aucun clic.</dd>
+<dd>Le filigrane des versions non licenciées : une pastille claire à liseré, texte noir gras, en bas à droite. <strong>Une par fenêtre</strong>, posée aussi par <code>MarkHost</code>, que la bibliothèque appelle depuis l'hébergement des vues et depuis l'<code>Opening</code> des contrôles posés dans l'IDE.<span class="sub">Le fond est translucide par son CALQUE et non par l'alpha de la vue, sans quoi le texte pâlirait avec lui. La vue rend <code>Nil</code> depuis <code>hitTest:</code> : elle ne prend aucun clic.</span></dd>
 </dl></div>
 </article>
 </section>

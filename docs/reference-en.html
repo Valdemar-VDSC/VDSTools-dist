@@ -476,7 +476,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <h3>VDSLicence</h3>
 <span class="kind">class</span>
 </header>
-<p class="lede">The licence check. <strong>Running from the IDE is free</strong>: the check sits behind <code>#If DebugBuild</code>, so it is not even compiled under the IDE. A BUILT application without a valid licence still runs, but <code>NativeWindowChrome.Install</code> puts a watermark on it.</p>
+<p class="lede">The licence check. <strong>Running from the IDE is free</strong>: the check sits behind <code>#If DebugBuild</code>, so it is not even compiled under the IDE. A BUILT application without a valid licence still runs, but <strong>every window that uses VDSTools</strong> carries a notice — chrome, a control dropped in the IDE, or a hosted AppKit view. <strong>One exception</strong>: the publisher's demo application, recognised by its bundle IDENTIFIER, with no key — a key placed in a distributed application can be read from its binary and used as is elsewhere.</p>
 <div class="block"><h4>Methods</h4><dl class="api">
 <dt><code class="sig">Shared Sub SetLicence(licensee As String, key As String)</code></dt>
 <dd>To be called in <code>App.Opening</code>, BEFORE any window is dressed. The name must be copied EXACTLY as it appears on the licence: it goes into the code's computation, and one extra space is enough for it to be refused. Two empty strings = no licence.</dd>
@@ -487,7 +487,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dt><code class="sig">Shared Function MakeLicence(licensee As String, majorCovered As Integer) As String</code></dt>
 <dd>Builds a key — the generator's business, not the application's. A 33-character key, <code>VDS01-XXXXXX-…</code>: HMAC-SHA256 truncated to 120 bits, in base32 without the letters I, L, O and U.</dd>
 <dt><code class="sig">Shared Sub ApplyWatermark(window As Ptr)</code></dt>
-<dd>The watermark of unlicensed builds. The view placed returns <code>Nil</code> from <code>hitTest:</code>: it takes no clicks.</dd>
+<dd>The watermark of unlicensed builds: a light badge with a border, bold black text, bottom right. <strong>One per window</strong>, also placed by <code>MarkHost</code>, which the library calls from view hosting and from the <code>Opening</code> of the controls dropped in the IDE.<span class="sub">The background is translucent through its LAYER, not through the view's alpha, or the text would fade with it. The view returns <code>Nil</code> from <code>hitTest:</code>: it takes no clicks.</span></dd>
 </dl></div>
 </article>
 </section>

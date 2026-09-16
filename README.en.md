@@ -34,7 +34,7 @@ Everything is in the [latest release](../../releases/latest):
 That is €50 and €200 excluding VAT, French VAT at 20% included — a business established in the
 EU outside France is invoiced net of tax, on production of its VAT number. Per developer,
 unlimited applications, royalty-free distribution. Orders go to **store@vdsc.fr**; the full terms are in
-[CONDITIONS.en.md](CONDITIONS.en.md).
+[CONDITIONS.en.md](CONDITIONS.en.md) — or [online](https://valdemar-vdsc.github.io/VDSTools-dist/conditions-en.html).
 
 Payment is by **PayPal invoice**, sent on request and payable by card. State the **licensee name**,
 exactly as it will be copied into the code, and the billing address. The key is sent **within 24
@@ -96,7 +96,7 @@ mChrome.Title = "My application"
 **Running from the IDE is free** — the check is not even compiled under the IDE. A **built**
 application without a valid licence runs, but carries a watermark.
 
-The terms are in [CONDITIONS.en.md](CONDITIONS.en.md).
+The terms are in [CONDITIONS.en.md](CONDITIONS.en.md) — or [online](https://valdemar-vdsc.github.io/VDSTools-dist/conditions-en.html).
 
 ---
 

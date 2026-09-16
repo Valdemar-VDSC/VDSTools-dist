@@ -34,7 +34,7 @@ Tout est dans la [dernière version](../../releases/latest) :
 Soit 50 € et 200 € hors taxes, TVA française de 20 % incluse — un professionnel établi dans l'UE
 hors de France est facturé hors taxes, sur communication de son numéro de TVA. Par développeur,
 applications illimitées, distribution sans redevance. L'achat se fait auprès de **store@vdsc.fr** ; les
-conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
+conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md) — ou [en ligne](https://valdemar-vdsc.github.io/VDSTools-dist/conditions-fr.html).
 
 Le paiement se fait par **facture PayPal**, envoyée à la demande et réglable par carte. Indiquer
 le **nom du licencié**, tel qu'il devra être recopié dans le code, et l'adresse de facturation.
@@ -96,7 +96,7 @@ mChrome.Title = "Mon application"
 **L'exécution depuis l'IDE est libre** — le contrôle n'est même pas compilé sous l'IDE. Une
 application **construite** sans licence valide fonctionne, mais porte un filigrane.
 
-Les conditions d'utilisation figurent dans [CONDITIONS.md](CONDITIONS.md).
+Les conditions d'utilisation figurent dans [CONDITIONS.md](CONDITIONS.md) — ou [en ligne](https://valdemar-vdsc.github.io/VDSTools-dist/conditions-fr.html).
 
 ---
 

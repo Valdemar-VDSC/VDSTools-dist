@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Licence terms — VDSTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF;
+  --ink:#131820; --body:#333C46; --muted:#66727F;
+  --rule:#DFE4E8; --rule-strong:#C6CED5;
+  --accent:#0D6E79; --accent-ink:#0A565F; --accent-soft:#E2EFF0;
+  --shadow:0 1px 2px rgba(19,24,32,.05);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C0F13; --surface:#13181D;
+    --ink:#EBF0F4; --body:#BFC8D1; --muted:#8794A1;
+    --rule:#222932; --rule-strong:#333C46;
+    --accent:#4CBECA; --accent-ink:#7BD5DE; --accent-soft:#10313789;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--body);
+  font-family:var(--sans); font-size:.95rem; line-height:1.66; -webkit-font-smoothing:antialiased}
+h1,h2{color:var(--ink); font-family:var(--display); margin:0; line-height:1.2; text-wrap:balance}
+h1{font-size:clamp(1.8rem,5vw,2.5rem); font-weight:800; letter-spacing:-.02em}
+h2{font-size:1.3rem; margin:2.4rem 0 .7rem}
+a{color:var(--accent-ink); text-decoration:none}
+a:hover{text-decoration:underline; text-underline-offset:3px}
+code{font-family:var(--mono); font-size:.92em}
+p{margin:.7rem 0}
+ul{margin:.7rem 0; padding-left:1.25rem}
+li{margin:.35rem 0}
+hr{border:0; border-top:1px solid var(--rule); margin:2.2rem 0}
+header{background:var(--surface); border-bottom:1px solid var(--rule)}
+.wrap{max-width:780px; margin:0 auto; padding:clamp(1.6rem,5vw,3rem) clamp(1.2rem,4vw,2rem)}
+.bar{display:flex; gap:1rem; justify-content:space-between; align-items:baseline;
+  font-size:.84rem; color:var(--muted); margin-bottom:1.4rem}
+.meta{color:var(--muted); font-size:.86rem; margin-top:.8rem}
+.tablewrap{overflow-x:auto; margin:1.1rem 0}
+table{border-collapse:collapse; width:100%; font-size:.9rem; background:var(--surface);
+  border:1px solid var(--rule); border-radius:10px; overflow:hidden; box-shadow:var(--shadow)}
+th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--rule); vertical-align:top}
+th{color:var(--ink); font-weight:600; background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+td:nth-child(2){text-align:right; white-space:nowrap; font-weight:600; color:var(--ink)}
+footer{color:var(--muted); font-size:.82rem; margin-top:2.5rem; padding-top:1.4rem;
+  border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="bar"><a href="index.html">&#8592; VDSTools</a><a href="conditions-fr.html">Français</a></div>
+  <h1>Licence terms</h1>
+</div></header>
+<div class="wrap">
+<p>VDSTools is a software component published by <strong>VDSC</strong>. Buying a licence grants the rights set out below.</p>
+<p><strong>Document version:</strong> 1.0 — 16 September 2026</p>
+<p>In case of discrepancy, the French version prevails.</p>
+<hr>
+<h2>1. Pricing</h2>
+<div class="tablewrap"><table><tr><th>Licence</th><th>Price</th><th>What it grants</th></tr><tr><td><strong>Compiled library</strong></td><td><strong>€60 incl. VAT</strong></td><td>The ready-to-use library, the documentation, updates within the major version bought</td></tr><tr><td><strong>Source code</strong></td><td><strong>€240 incl. VAT</strong></td><td>The same, plus the full source code of the library, modifiable for internal use</td></tr></table></div>
+<p>Prices <strong>include</strong> French VAT at 20% — that is €50 and €200 excluding VAT. They are <strong>per developer</strong>: a second developer working on the same code needs a second licence.</p>
+<p><strong>Business customers established in the European Union, outside France</strong>: French VAT is not due. On production of a valid EU VAT number, the invoice is issued net of tax — €50 or €200 — and the buyer accounts for the tax under the reverse charge in their own country.</p>
+<p>Orders: <strong>store@vdsc.fr</strong>.</p>
+<h2>2. What the licence grants</h2>
+<ul><li><strong>Use</strong> VDSTools to develop applications, with no limit on their number.</li><li><strong>Distribute</strong> those applications, commercial or not, <strong>royalty-free and with no limit on copies</strong>: the library is embedded in them in compiled form.</li><li><strong>Run from the Xojo IDE</strong>: free, no licence needed. The check is not even compiled under the IDE. A <strong>built</strong> application without a valid licence runs, but carries a watermark.</li><li><strong>Modify the source code</strong> for your own needs — source licence only.</li></ul>
+<p>The licence is <strong>perpetual</strong> for the version bought, and includes <strong>all its minor updates</strong>. Moving to a higher version entitles the holder to a <strong>25% discount</strong> on the price of that new version.</p>
+<h2>3. What the licence does not grant</h2>
+<ul><li><strong>Redistributing the library itself</strong>, as is or modified, as source or as a library, to a third party — including a subcontractor or a client, unless they hold their own licence.</li><li><strong>Embedding it in a component, framework or library resold to developers.</strong></li><li><strong>Publishing the source code</strong>, in a public repository or otherwise. If the project using it is open source, VDSTools code must be removed from its public version.</li><li><strong>Removing or circumventing</strong> the licence check and the watermark.</li><li><strong>Reverse-engineering</strong> the compiled library, within the limits mandatory law allows.</li><li><strong>Transferring or lending</strong> the licence to a third party, without VDSC's written consent.</li></ul>
+<h2>4. Delivery, withdrawal and refunds</h2>
+<p>Payment is by <strong>PayPal invoice</strong>, sent by email on request and payable by card or PayPal account. The licence is delivered by email, <strong>within 24 hours</strong> of payment.</p>
+<p><strong>Business customers</strong>: no right of withdrawal applies.</p>
+<p><strong>Consumers</strong>: French consumer law grants a fourteen-day right of withdrawal. As the licence is supplied immediately, that right is <strong>expressly waived</strong>, the waiver being collected when the order is placed: once the key has been sent, no refund is possible.</p>
+<p>The demo application allows the product to be evaluated before purchase.</p>
+<h2>5. Support</h2>
+<p>Support is by email, at <strong>support@vdsc.fr</strong>, within reason, for the current major version. It covers the use of the library, not the development of the applications using it.</p>
+<h2>6. Warranty and liability</h2>
+<p>VDSTools is provided <strong>as is</strong>, with no warranty that it is free of errors or fit for a particular purpose. The licence holder remains responsible for checking that it meets their needs.</p>
+<p>VDSC shall not be liable for indirect damages — loss of business, data or customers — arising from the use of the library. <strong>VDSC's liability is in any event limited to the amount paid for the licence.</strong></p>
+<p>Statutory warranties owed to consumers remain unaffected.</p>
+<h2>7. Termination</h2>
+<p>A breach of these terms terminates the licence automatically. The library must then stop being used and be removed from projects; applications already distributed are not affected.</p>
+<h2>8. Governing law</h2>
+<p>These terms are governed by <strong>French law</strong>. Failing an amicable settlement, any dispute falls to the exclusive jurisdiction of the <strong>Tribunal de commerce d'Évry</strong>.</p>
+<p>This choice of court applies between businesses only: a consumer keeps the choice of court that the law affords them.</p>
+<h2>9. Contact</h2>
+<ul><li><strong>Orders</strong>: store@vdsc.fr</li><li><strong>Support</strong>: support@vdsc.fr</li></ul>
+<hr>
+<p>© 2026 VDSC. All rights reserved. VDSTools and its source code remain the property of VDSC; the licence grants a right of use, not a transfer of ownership.</p>
+</div>
+</body>
+</html>

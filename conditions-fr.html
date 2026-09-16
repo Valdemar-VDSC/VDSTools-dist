@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conditions d'utilisation — VDSTools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF;
+  --ink:#131820; --body:#333C46; --muted:#66727F;
+  --rule:#DFE4E8; --rule-strong:#C6CED5;
+  --accent:#0D6E79; --accent-ink:#0A565F; --accent-soft:#E2EFF0;
+  --shadow:0 1px 2px rgba(19,24,32,.05);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C0F13; --surface:#13181D;
+    --ink:#EBF0F4; --body:#BFC8D1; --muted:#8794A1;
+    --rule:#222932; --rule-strong:#333C46;
+    --accent:#4CBECA; --accent-ink:#7BD5DE; --accent-soft:#10313789;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--body);
+  font-family:var(--sans); font-size:.95rem; line-height:1.66; -webkit-font-smoothing:antialiased}
+h1,h2{color:var(--ink); font-family:var(--display); margin:0; line-height:1.2; text-wrap:balance}
+h1{font-size:clamp(1.8rem,5vw,2.5rem); font-weight:800; letter-spacing:-.02em}
+h2{font-size:1.3rem; margin:2.4rem 0 .7rem}
+a{color:var(--accent-ink); text-decoration:none}
+a:hover{text-decoration:underline; text-underline-offset:3px}
+code{font-family:var(--mono); font-size:.92em}
+p{margin:.7rem 0}
+ul{margin:.7rem 0; padding-left:1.25rem}
+li{margin:.35rem 0}
+hr{border:0; border-top:1px solid var(--rule); margin:2.2rem 0}
+header{background:var(--surface); border-bottom:1px solid var(--rule)}
+.wrap{max-width:780px; margin:0 auto; padding:clamp(1.6rem,5vw,3rem) clamp(1.2rem,4vw,2rem)}
+.bar{display:flex; gap:1rem; justify-content:space-between; align-items:baseline;
+  font-size:.84rem; color:var(--muted); margin-bottom:1.4rem}
+.meta{color:var(--muted); font-size:.86rem; margin-top:.8rem}
+.tablewrap{overflow-x:auto; margin:1.1rem 0}
+table{border-collapse:collapse; width:100%; font-size:.9rem; background:var(--surface);
+  border:1px solid var(--rule); border-radius:10px; overflow:hidden; box-shadow:var(--shadow)}
+th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--rule); vertical-align:top}
+th{color:var(--ink); font-weight:600; background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+td:nth-child(2){text-align:right; white-space:nowrap; font-weight:600; color:var(--ink)}
+footer{color:var(--muted); font-size:.82rem; margin-top:2.5rem; padding-top:1.4rem;
+  border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="bar"><a href="index.html">&#8592; VDSTools</a><a href="conditions-en.html">English</a></div>
+  <h1>Conditions d'utilisation</h1>
+</div></header>
+<div class="wrap">
+<p>VDSTools est un composant logiciel édité par <strong>VDSC</strong>. L'acquisition d'une licence donne les droits décrits ci-dessous.</p>
+<p><strong>Version du document :</strong> 1.0 — 16 septembre 2026</p>
+<hr>
+<h2>1. Tarifs</h2>
+<div class="tablewrap"><table><tr><th>Licence</th><th>Prix</th><th>Ce qu'elle donne</th></tr><tr><td><strong>Bibliothèque compilée</strong></td><td><strong>60 € TTC</strong></td><td>La bibliothèque prête à l'emploi, la documentation, les mises à jour de la version majeure achetée</td></tr><tr><td><strong>Code source</strong></td><td><strong>240 € TTC</strong></td><td>Idem, plus le code source complet de la bibliothèque, modifiable pour un usage interne</td></tr></table></div>
+<p>Prix <strong>toutes taxes comprises</strong>, TVA française de 20 % incluse — soit 50 € et 200 € hors taxes. Tarif <strong>par développeur</strong> : un second développeur travaillant sur le même code nécessite une seconde licence.</p>
+<p><strong>Professionnel établi dans l'Union européenne, hors de France</strong> : la TVA française n'est pas due. Sur communication d'un numéro de TVA intracommunautaire valide, la facture est établie hors taxes — 50 € ou 200 € — et la taxe est autoliquidée par l'acheteur dans son pays.</p>
+<p>L'achat se fait auprès de <strong>store@vdsc.fr</strong>.</p>
+<h2>2. Ce que la licence accorde</h2>
+<ul><li><strong>Utiliser</strong> VDSTools pour développer des applications, en nombre illimité.</li><li><strong>Distribuer</strong> ces applications, commerciales ou non, <strong>sans redevance ni limite de copies</strong> : la bibliothèque y est incorporée sous forme compilée.</li><li><strong>Exécuter depuis l'IDE Xojo</strong> : libre, sans licence. Le contrôle n'est pas même compilé sous l'IDE. Une application <strong>construite</strong> sans licence valide fonctionne, mais porte un filigrane.</li><li><strong>Modifier le code source</strong> pour ses propres besoins — licence « code source » uniquement.</li></ul>
+<p>La licence est <strong>perpétuelle</strong> pour la version achetée, et comprend <strong>toutes les mises à jour mineures</strong> de celle-ci. Le passage à une version supérieure ouvre droit à une <strong>remise de 25 %</strong> sur le prix de cette nouvelle version.</p>
+<h2>3. Ce que la licence n'accorde pas</h2>
+<ul><li><strong>Redistribuer la bibliothèque elle-même</strong>, telle quelle ou modifiée, sous forme de source ou de bibliothèque, à un tiers — y compris à un sous-traitant ou à un client, sauf si celui-ci détient sa propre licence.</li><li><strong>L'intégrer à un composant, un framework ou une bibliothèque revendus à des développeurs.</strong></li><li><strong>Publier le code source</strong>, en dépôt public ou autrement. Si le projet qui l'emploie est open source, le code de VDSTools doit être retiré de sa version publique.</li><li><strong>Retirer ou contourner</strong> le contrôle de licence et le filigrane.</li><li><strong>Rétro-ingénierie</strong> de la bibliothèque compilée, dans les limites que la loi rend impératives.</li><li><strong>Céder ou prêter</strong> la licence à un tiers, sauf accord écrit de VDSC.</li></ul>
+<h2>4. Livraison, rétractation et remboursement</h2>
+<p>Le paiement se fait par <strong>facture PayPal</strong>, adressée par courriel à la demande et réglable par carte ou par compte PayPal. La licence est délivrée par courriel, <strong>sous 24 heures</strong> à compter du paiement.</p>
+<p><strong>Client professionnel</strong> : le droit de rétractation ne s'applique pas.</p>
+<p><strong>Client particulier</strong> : le Code de la consommation ouvre un droit de rétractation de quatorze jours. La licence étant fournie immédiatement, ce droit fait l'objet d'un <strong>renoncement exprès</strong>, recueilli au moment de la commande : une fois la clé transmise, le remboursement n'est plus possible.</p>
+<p>La version de démonstration permet d'évaluer le produit avant l'achat.</p>
+<h2>5. Support</h2>
+<p>Le support se fait par courriel, à <strong>support@vdsc.fr</strong>, dans la limite du raisonnable, pour la version majeure en cours. Il couvre l'usage de la bibliothèque, non le développement des applications qui l'emploient.</p>
+<h2>6. Garantie et responsabilité</h2>
+<p>VDSTools est fourni <strong>en l'état</strong>, sans garantie que son fonctionnement soit exempt d'erreur ni qu'il convienne à un usage particulier. Le titulaire de la licence reste responsable de vérifier qu'il répond à ses besoins.</p>
+<p>VDSC ne saurait être tenu responsable des dommages indirects — perte d'exploitation, de données ou de clientèle — liés à l'usage de la bibliothèque. <strong>La responsabilité de VDSC est en tout état de cause limitée au montant payé pour la licence.</strong></p>
+<p>Les garanties légales de conformité et des vices cachés restent dues au consommateur.</p>
+<h2>7. Résiliation</h2>
+<p>Un manquement aux conditions ci-dessus met fin à la licence de plein droit. La bibliothèque doit alors cesser d'être utilisée et être retirée des projets, sans que les applications déjà distribuées soient concernées.</p>
+<h2>8. Droit applicable</h2>
+<p>Les présentes conditions sont soumises au <strong>droit français</strong>. À défaut d'accord amiable, tout litige relève de la compétence exclusive du <strong>tribunal de commerce d'Évry</strong>.</p>
+<p>Cette attribution de compétence ne vaut qu'entre professionnels : un consommateur conserve le choix de la juridiction que la loi lui ouvre.</p>
+<h2>9. Contact</h2>
+<ul><li><strong>Achat</strong> : store@vdsc.fr</li><li><strong>Support</strong> : support@vdsc.fr</li></ul>
+<hr>
+<p>© 2026 VDSC. Tous droits réservés. VDSTools et son code source restent la propriété de VDSC ; la licence accorde un droit d'usage, non un transfert de propriété.</p>
+</div>
+</body>
+</html>

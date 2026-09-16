@@ -15,11 +15,11 @@ In case of discrepancy, the French version prevails.
 
 | Licence | Price | What it grants |
 |---|--:|---|
-| **Compiled library** | **€50** | The ready-to-use library, the documentation, updates within the major version bought |
-| **Source code** | **€200** | The same, plus the full source code of the library, modifiable for internal use |
+| **Compiled library** | **€60 incl. VAT** | The ready-to-use library, the documentation, updates within the major version bought |
+| **Source code** | **€240 incl. VAT** | The same, plus the full source code of the library, modifiable for internal use |
 
-Prices are **per developer** *[VAT included or excluded — to be stated]*. A second developer
-working on the same code needs a second licence.
+Prices **include** French VAT at 20% — that is €50 and €200 excluding VAT. They are **per
+developer**: a second developer working on the same code needs a second licence.
 
 Orders: **store@vdsc.fr**.
 

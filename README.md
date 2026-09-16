@@ -26,11 +26,12 @@ Tout est dans la [dernière version](../../releases/latest) :
 
 | Licence | Prix | Ce qu'elle donne |
 |---|--:|---|
-| **Bibliothèque compilée** | **50 €** | La bibliothèque prête à l'emploi et ses mises à jour |
-| **Code source** | **200 €** | Idem, plus le code source complet, modifiable pour un usage interne |
+| **Bibliothèque compilée** | **60 € TTC** | La bibliothèque prête à l'emploi et ses mises à jour |
+| **Code source** | **240 € TTC** | Idem, plus le code source complet, modifiable pour un usage interne |
 
-Par développeur. Applications illimitées, distribution sans redevance. L'achat se fait auprès de
-**store@vdsc.fr** ; les conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
+Soit 50 € et 200 € hors taxes, TVA française de 20 % incluse. Par développeur, applications
+illimitées, distribution sans redevance. L'achat se fait auprès de **store@vdsc.fr** ; les
+conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
 
 ## Documentation
 

@@ -26,11 +26,12 @@ Everything is in the [latest release](../../releases/latest):
 
 | Licence | Price | What it grants |
 |---|--:|---|
-| **Compiled library** | **€50** | The ready-to-use library and its updates |
-| **Source code** | **€200** | The same, plus the full source code, modifiable for internal use |
+| **Compiled library** | **€60 incl. VAT** | The ready-to-use library and its updates |
+| **Source code** | **€240 incl. VAT** | The same, plus the full source code, modifiable for internal use |
 
-Per developer. Unlimited applications, royalty-free distribution. Orders go to **store@vdsc.fr**;
-the full terms are in [CONDITIONS.en.md](CONDITIONS.en.md).
+That is €50 and €200 excluding VAT, French VAT at 20% included. Per developer, unlimited
+applications, royalty-free distribution. Orders go to **store@vdsc.fr**; the full terms are in
+[CONDITIONS.en.md](CONDITIONS.en.md).
 
 ## Documentation
 

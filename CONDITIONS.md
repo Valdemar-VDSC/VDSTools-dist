@@ -13,11 +13,12 @@ droits décrits ci-dessous. Les points signalés *[ainsi]* restent à arrêter a
 
 | Licence | Prix | Ce qu'elle donne |
 |---|--:|---|
-| **Bibliothèque compilée** | **50 €** | La bibliothèque prête à l'emploi, la documentation, les mises à jour de la version majeure achetée |
-| **Code source** | **200 €** | Idem, plus le code source complet de la bibliothèque, modifiable pour un usage interne |
+| **Bibliothèque compilée** | **60 € TTC** | La bibliothèque prête à l'emploi, la documentation, les mises à jour de la version majeure achetée |
+| **Code source** | **240 € TTC** | Idem, plus le code source complet de la bibliothèque, modifiable pour un usage interne |
 
-Prix **par développeur** *[TTC ou HT — à préciser selon ton régime de TVA]*. Un second
-développeur travaillant sur le même code nécessite une seconde licence.
+Prix **toutes taxes comprises**, TVA française de 20 % incluse — soit 50 € et 200 € hors taxes.
+Tarif **par développeur** : un second développeur travaillant sur le même code nécessite une
+seconde licence.
 
 L'achat se fait auprès de **store@vdsc.fr**.
 

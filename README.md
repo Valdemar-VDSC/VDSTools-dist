@@ -1,3 +1,5 @@
+*[English version: [README.en.md](README.en.md)]*
+
 # VDSTools
 
 Chrome de fenêtre, barre d'outils et contrôles **macOS natifs** pour Xojo — en Xojo pur.
@@ -19,6 +21,16 @@ Tout est dans la [dernière version](../../releases/latest) :
 | `VDSTools-x.y.z.xojo_library` | La bibliothèque compilée, à ajouter à un projet Xojo |
 | `VDSToolsDemoByLib.xojo_binary_project` | Le projet de démonstration, qui utilise la bibliothèque |
 | `VDSToolsDemo-x.y.z.zip` | L'application de démonstration, prête à lancer |
+
+## Tarifs
+
+| Licence | Prix | Ce qu'elle donne |
+|---|--:|---|
+| **Bibliothèque compilée** | **50 €** | La bibliothèque prête à l'emploi et ses mises à jour |
+| **Code source** | **200 €** | Idem, plus le code source complet, modifiable pour un usage interne |
+
+Par développeur. Applications illimitées, distribution sans redevance. L'achat se fait auprès de
+**store@vdsc.fr** ; les conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
 
 ## Documentation
 
@@ -80,19 +92,4 @@ Les conditions d'utilisation figurent dans [CONDITIONS.md](CONDITIONS.md).
 
 ---
 
-## English
-
-Native macOS window chrome, toolbar and controls for Xojo, in pure Xojo — no plugin, no
-external framework, no compiled Objective-C, only `Declare`s. Targets macOS 15 and later.
-
-100 classes over what AppKit offers and Xojo does not expose, 27 of them controls you drop in
-the IDE: `NSToolbar` and its customisation sheet, `NSSplitViewController` chrome, source-list
-sidebars, view-based tables and outlines, window tabs, the system Window menu, QuickLook, the
-Dock tile, and more.
-
-This repository carries the documentation and the released builds; the library source is not
-part of it. Grab the compiled library and the demo from the
-[latest release](../../releases/latest), and read the
-[English reference](docs/reference-en.html).
-
-Running from the IDE is free; a built application needs a licence.
+© 2026 VDSC — VDSTools

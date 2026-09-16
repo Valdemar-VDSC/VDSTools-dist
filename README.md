@@ -42,8 +42,8 @@ La clé est envoyée **sous 24 heures** à compter du paiement.
 
 ## Documentation
 
-- [Référence développeur — français](docs/reference-fr.html)
-- [Developer reference — English](docs/reference-en.html)
+- [Référence développeur — français](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-fr.html) — [le fichier](docs/reference-fr.html)
+- [Developer reference — English](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-en.html) — [the file](docs/reference-en.html)
 
 Elle couvre les 100 classes, leurs énumérations, et surtout **56 pièges** : ceux qui ont coûté
 cher, avec leur symptôme, qui presque toujours pointe ailleurs que la cause.

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VDSTools — macOS natif pour Xojo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF; --surface-2:#EDF0F2;
+  --ink:#131820; --body:#333C46; --muted:#66727F;
+  --rule:#DFE4E8; --rule-strong:#C6CED5;
+  --accent:#0D6E79; --accent-ink:#0A565F; --accent-soft:#E2EFF0;
+  --shadow:0 1px 2px rgba(19,24,32,.05);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C0F13; --surface:#13181D; --surface-2:#1A2027;
+    --ink:#EBF0F4; --body:#BFC8D1; --muted:#8794A1;
+    --rule:#222932; --rule-strong:#333C46;
+    --accent:#4CBECA; --accent-ink:#7BD5DE; --accent-soft:#10313789;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--body);
+  font-family:var(--sans); font-size:.95rem; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3{color:var(--ink); font-family:var(--display); margin:0; line-height:1.15; text-wrap:balance}
+a{color:var(--accent-ink); text-decoration:none}
+a:hover{text-decoration:underline; text-underline-offset:3px}
+code{font-family:var(--mono); font-size:.92em}
+.wrap{max-width:900px; margin:0 auto; padding:clamp(1.5rem,5vw,3.5rem) clamp(1.2rem,4vw,2rem)}
+header{background:var(--surface); border-bottom:1px solid var(--rule)}
+h1{font-size:clamp(2rem,6vw,2.9rem); font-weight:800; letter-spacing:-.02em}
+.lede{font-size:1.06rem; margin:1rem 0 0; max-width:60ch}
+.meta{color:var(--muted); font-size:.84rem; margin-top:1.2rem}
+.cards{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin:2rem 0}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:12px;
+  padding:1.3rem 1.4rem; box-shadow:var(--shadow)}
+.card h3{font-size:1.1rem; margin-bottom:.4rem}
+.card p{margin:0; color:var(--muted); font-size:.88rem}
+.btn{display:inline-block; margin-top:.9rem; padding:.5rem .95rem; border-radius:8px;
+  background:var(--accent-soft); border:1px solid var(--rule-strong); color:var(--accent-ink);
+  font-weight:600; font-size:.88rem}
+.btn:hover{text-decoration:none; border-color:var(--accent)}
+section{margin-top:2.5rem}
+section h2{font-size:1.5rem; margin-bottom:.8rem}
+table{border-collapse:collapse; width:100%; margin-top:1rem; font-size:.9rem}
+th,td{text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--rule); vertical-align:top}
+th{color:var(--ink); font-weight:600}
+pre{background:var(--surface); border:1px solid var(--rule); border-radius:10px;
+  padding:1rem; overflow-x:auto; font-family:var(--mono); font-size:.84rem; line-height:1.55}
+.en{border-top:1px solid var(--rule); margin-top:3rem; padding-top:2rem}
+footer{color:var(--muted); font-size:.82rem; margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>VDSTools</h1>
+  <p class="lede">Chrome de fenêtre, barre d'outils et contrôles <strong>macOS natifs</strong> pour Xojo,
+  en Xojo pur. Aucun plugin, aucun framework externe, aucun Objective-C compilé : uniquement des
+  <code>Declare</code>.</p>
+  <p class="meta">100 classes — 27 contrôles à poser dans l'IDE — cible macOS 15 et au-delà</p>
+</div></header>
+
+<div class="wrap">
+  <div class="cards">
+    <div class="card">
+      <h3>Référence développeur</h3>
+      <p>Les 100 classes, leurs énumérations et 56 pièges documentés, avec leur symptôme et leur cause.</p>
+      <a class="btn" href="docs/reference-fr.html">Français</a>
+      <a class="btn" href="docs/reference-en.html">English</a>
+    </div>
+    <div class="card">
+      <h3>Téléchargement</h3>
+      <p>La bibliothèque compilée, le projet de démonstration et l'application prête à lancer.</p>
+      <a class="btn" href="https://github.com/OWNER/REPO/releases/latest">Dernière version</a>
+    </div>
+  </div>
+
+  <section>
+    <h2>Ce que ça apporte</h2>
+    <p>Xojo ne donne accès ni à <code>NSToolbar</code>, ni à <code>NSSplitViewController</code>, ni à la
+    barre latérale source-list, ni aux tableaux à cellules riches, ni aux onglets de fenêtre, ni au menu
+    Fenêtre du système. VDSTools les apporte, répartis par rôle.</p>
+    <table>
+      <tr><th>Domaine</th><th>Classes</th><th>Contenu</th></tr>
+      <tr><td>Fenêtre</td><td>3</td><td>Chrome <code>NSSplitViewController</code>, onglets, niveau et comportement</td></tr>
+      <tr><td>Barre latérale</td><td>3</td><td>Plate ou hiérarchique, en style source-list</td></tr>
+      <tr><td>Barre d'outils</td><td>7</td><td><code>NSToolbar</code> et ses types d'items, personnalisation comprise</td></tr>
+      <tr><td>Contrôles</td><td>27</td><td>Un contrôle AppKit par classe, du bouton à l'éditeur de texte riche</td></tr>
+      <tr><td>Contrôles plaçables</td><td>27</td><td>Ceux qu'on pose dans l'IDE, réglables dans l'inspecteur</td></tr>
+      <tr><td>Surfaces</td><td>9</td><td>Popover, alerte, menus enrichis, vibrance, cadres, 3D</td></tr>
+      <tr><td>Disposition</td><td>2</td><td><code>NSGridView</code> et <code>NSStackView</code></td></tr>
+      <tr><td>Système</td><td>17</td><td>Barre de menus, panneaux de fichiers, QuickLook, Dock, curseurs, haptique, Finder</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Prise en main</h2>
+    <p>Ajouter la bibliothèque au projet, puis poser la licence dans <code>App.Opening</code>,
+    <strong>avant</strong> qu'une fenêtre ne soit habillée :</p>
+<pre>VDSLicence.SetLicence("Nom du licencié", "VDS01-XXXXXX-XXXXXX-XXXXXX-XXXXXX")
+
+mChrome = New NativeWindowChrome
+mChrome.Install(mSidebar.BuildSidebarView(230, Self.Height), 230, 200, 340)
+mChrome.Title = "Mon application"</pre>
+    <p>Le nom doit être recopié <strong>exactement</strong> tel qu'il figure sur la licence : il entre
+    dans le calcul du code, une espace en trop suffit à le faire refuser.</p>
+    <p><strong>L'exécution depuis l'IDE est libre.</strong> Une application construite sans licence
+    valide fonctionne, mais porte un filigrane.</p>
+  </section>
+
+  <section class="en" lang="en">
+    <h2>English</h2>
+    <p>Native macOS window chrome, toolbar and controls for Xojo, in pure Xojo — no plugin, no external
+    framework, no compiled Objective-C, only <code>Declare</code>s. Targets macOS 15 and later.</p>
+    <p>100 classes over what AppKit offers and Xojo does not expose, 27 of them controls you drop in the
+    IDE. Running from the IDE is free; a built application needs a licence.</p>
+    <p><a href="docs/reference-en.html">Developer reference</a> —
+    <a href="https://github.com/OWNER/REPO/releases/latest">Latest release</a></p>
+  </section>
+
+  <footer>© 2026 VDSC — VDSTools</footer>
+</div>
+</body>
+</html>

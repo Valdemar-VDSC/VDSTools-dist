@@ -29,8 +29,9 @@ Everything is in the [latest release](../../releases/latest):
 | **Compiled library** | **€60 incl. VAT** | The ready-to-use library and its updates |
 | **Source code** | **€240 incl. VAT** | The same, plus the full source code, modifiable for internal use |
 
-That is €50 and €200 excluding VAT, French VAT at 20% included. Per developer, unlimited
-applications, royalty-free distribution. Orders go to **store@vdsc.fr**; the full terms are in
+That is €50 and €200 excluding VAT, French VAT at 20% included — a business established in the
+EU outside France is invoiced net of tax, on production of its VAT number. Per developer,
+unlimited applications, royalty-free distribution. Orders go to **store@vdsc.fr**; the full terms are in
 [CONDITIONS.en.md](CONDITIONS.en.md).
 
 ## Documentation

@@ -29,8 +29,9 @@ Tout est dans la [dernière version](../../releases/latest) :
 | **Bibliothèque compilée** | **60 € TTC** | La bibliothèque prête à l'emploi et ses mises à jour |
 | **Code source** | **240 € TTC** | Idem, plus le code source complet, modifiable pour un usage interne |
 
-Soit 50 € et 200 € hors taxes, TVA française de 20 % incluse. Par développeur, applications
-illimitées, distribution sans redevance. L'achat se fait auprès de **store@vdsc.fr** ; les
+Soit 50 € et 200 € hors taxes, TVA française de 20 % incluse — un professionnel établi dans l'UE
+hors de France est facturé hors taxes, sur communication de son numéro de TVA. Par développeur,
+applications illimitées, distribution sans redevance. L'achat se fait auprès de **store@vdsc.fr** ; les
 conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
 
 ## Documentation

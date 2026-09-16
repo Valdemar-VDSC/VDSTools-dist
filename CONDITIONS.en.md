@@ -3,9 +3,9 @@
 # Licence terms
 
 VDSTools is a software component published by **VDSC**. Buying a licence grants the rights set
-out below. Items marked *[like this]* are still to be settled before publication.
+out below.
 
-**Document version:** 1.0 — *[date]*
+**Document version:** 1.0 — 16 September 2026
 
 In case of discrepancy, the French version prevails.
 
@@ -21,6 +21,10 @@ In case of discrepancy, the French version prevails.
 Prices **include** French VAT at 20% — that is €50 and €200 excluding VAT. They are **per
 developer**: a second developer working on the same code needs a second licence.
 
+**Business customers established in the European Union, outside France**: French VAT is not due.
+On production of a valid EU VAT number, the invoice is issued net of tax — €50 or €200 — and the
+buyer accounts for the tax under the reverse charge in their own country.
+
 Orders: **store@vdsc.fr**.
 
 ## 2. What the licence grants
@@ -32,9 +36,9 @@ Orders: **store@vdsc.fr**.
   IDE. A **built** application without a valid licence runs, but carries a watermark.
 - **Modify the source code** for your own needs — source licence only.
 
-The licence is **perpetual** for the major version bought: fixes and minor releases of that major
-version are included. Moving to the next major version is a paid upgrade *[upgrade price to be
-defined]*.
+The licence is **perpetual** for the version bought, and includes **all its minor updates**.
+Moving to a higher version entitles the holder to a **25% discount** on the price of that new
+version.
 
 ## 3. What the licence does not grant
 
@@ -49,14 +53,13 @@ defined]*.
 
 ## 4. Delivery, withdrawal and refunds
 
-The licence is delivered by email, within *[delay]* of payment.
+The licence is delivered by email, **within 24 hours** of payment.
 
 **Business customers**: no right of withdrawal applies.
 
 **Consumers**: French consumer law grants a fourteen-day right of withdrawal. As the licence is
-supplied immediately, the buyer **expressly waives** that right at the time of purchase, which
-ends any refund once the key has been sent. *[To confirm: this waiver must be collected
-explicitly at payment time.]*
+supplied immediately, that right is **expressly waived**, the waiver being collected when the
+order is placed: once the key has been sent, no refund is possible.
 
 The demo application allows the product to be evaluated before purchase.
 
@@ -84,8 +87,11 @@ used and be removed from projects; applications already distributed are not affe
 
 ## 8. Governing law
 
-These terms are governed by **French law**. Failing an amicable settlement, disputes fall to the
-competent courts *[jurisdiction to be stated]*.
+These terms are governed by **French law**. Failing an amicable settlement, any dispute falls to
+the exclusive jurisdiction of the **Tribunal de commerce d'Évry**.
+
+This choice of court applies between businesses only: a consumer keeps the choice of court that
+the law affords them.
 
 ## 9. Contact
 

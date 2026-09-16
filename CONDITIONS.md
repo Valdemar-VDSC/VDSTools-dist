@@ -3,9 +3,9 @@
 # Conditions d'utilisation
 
 VDSTools est un composant logiciel édité par **VDSC**. L'acquisition d'une licence donne les
-droits décrits ci-dessous. Les points signalés *[ainsi]* restent à arrêter avant publication.
+droits décrits ci-dessous.
 
-**Version du document :** 1.0 — *[date]*
+**Version du document :** 1.0 — 16 septembre 2026
 
 ---
 
@@ -20,6 +20,10 @@ Prix **toutes taxes comprises**, TVA française de 20 % incluse — soit 50 € 
 Tarif **par développeur** : un second développeur travaillant sur le même code nécessite une
 seconde licence.
 
+**Professionnel établi dans l'Union européenne, hors de France** : la TVA française n'est pas
+due. Sur communication d'un numéro de TVA intracommunautaire valide, la facture est établie hors
+taxes — 50 € ou 200 € — et la taxe est autoliquidée par l'acheteur dans son pays.
+
 L'achat se fait auprès de **store@vdsc.fr**.
 
 ## 2. Ce que la licence accorde
@@ -31,9 +35,9 @@ L'achat se fait auprès de **store@vdsc.fr**.
   l'IDE. Une application **construite** sans licence valide fonctionne, mais porte un filigrane.
 - **Modifier le code source** pour ses propres besoins — licence « code source » uniquement.
 
-La licence est **perpétuelle** pour la version majeure achetée : les correctifs et les versions
-mineures de cette majeure sont inclus. Le passage à la majeure suivante est payant
-*[tarif de mise à jour à définir]*.
+La licence est **perpétuelle** pour la version achetée, et comprend **toutes les mises à jour
+mineures** de celle-ci. Le passage à une version supérieure ouvre droit à une **remise de 25 %**
+sur le prix de cette nouvelle version.
 
 ## 3. Ce que la licence n'accorde pas
 
@@ -49,14 +53,14 @@ mineures de cette majeure sont inclus. Le passage à la majeure suivante est pay
 
 ## 4. Livraison, rétractation et remboursement
 
-La licence est délivrée par courriel, sous *[délai]* après paiement.
+La licence est délivrée par courriel, **sous 24 heures** à compter du paiement.
 
 **Client professionnel** : le droit de rétractation ne s'applique pas.
 
 **Client particulier** : le Code de la consommation ouvre un droit de rétractation de quatorze
-jours. La licence étant fournie immédiatement, l'acheteur **renonce expressément** à ce droit au
-moment de l'achat, ce qui éteint la possibilité de remboursement une fois la clé transmise.
-*[À confirmer : ce renoncement doit être recueilli explicitement au moment du paiement.]*
+jours. La licence étant fournie immédiatement, ce droit fait l'objet d'un **renoncement exprès**,
+recueilli au moment de la commande : une fois la clé transmise, le remboursement n'est plus
+possible.
 
 La version de démonstration permet d'évaluer le produit avant l'achat.
 
@@ -86,8 +90,11 @@ distribuées soient concernées.
 
 ## 8. Droit applicable
 
-Les présentes conditions sont soumises au **droit français**. À défaut d'accord amiable, le
-litige relève des tribunaux compétents *[ressort à préciser]*.
+Les présentes conditions sont soumises au **droit français**. À défaut d'accord amiable, tout
+litige relève de la compétence exclusive du **tribunal de commerce d'Évry**.
+
+Cette attribution de compétence ne vaut qu'entre professionnels : un consommateur conserve le
+choix de la juridiction que la loi lui ouvre.
 
 ## 9. Contact
 

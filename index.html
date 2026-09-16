@@ -55,6 +55,11 @@ h1{font-size:clamp(2rem,6vw,2.9rem); font-weight:800; letter-spacing:-.02em}
   :root:not([data-theme="light"]) .btn-buy{color:#0C0F13}
   :root:not([data-theme="light"]) .btn-buy:hover{color:#0C0F13}
 }
+/* La carte des tarifs prend toute la largeur : les trois boutons tiennent alors
+   sur une seule ligne, et repassent l'un sous l'autre sur un écran étroit. */
+.card-wide{grid-column:1/-1}
+.btn-row{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.9rem}
+.btn-row .btn{margin-top:0}
 ol{margin:.6rem 0 0; padding-left:1.3rem}
 ol li{margin:.3rem 0}
 section{margin-top:2.5rem}
@@ -90,14 +95,16 @@ footer{color:var(--muted); font-size:.82rem; margin-top:3rem; padding-top:1.5rem
       <p>La bibliothèque compilée, le projet de démonstration et l'application prête à lancer.</p>
       <a class="btn" href="https://github.com/Valdemar-VDSC/VDSTools-dist/releases/latest">Dernière version</a>
     </div>
-    <div class="card">
+    <div class="card card-wide">
       <h3>Tarifs</h3>
       <p><strong>60 € TTC</strong> la bibliothèque compilée, <strong>240 € TTC</strong> avec le code source.
       Par développeur, applications illimitées, distribution sans redevance. Professionnel de l'UE hors
       de France : facturation hors taxes, soit 50 € et 200 €.</p>
+      <div class="btn-row">
       <a class="btn btn-buy" href="mailto:store@vdsc.fr?subject=Commande%20VDSTools%20%E2%80%94%20biblioth%C3%A8que%20compil%C3%A9e%20%2860%20%E2%82%AC%20TTC%29&body=Bonjour%2C%0A%0AJe%20souhaite%20acqu%C3%A9rir%20une%20licence%20VDSTools%20%E2%80%94%20biblioth%C3%A8que%20compil%C3%A9e%20%2860%20%E2%82%AC%20TTC%29.%0A%0ANom%20du%20licenci%C3%A9%2C%20tel%20qu%27il%20doit%20figurer%20sur%20la%20licence%20%3A%0AAdresse%20de%20facturation%20%3A%0ANum%C3%A9ro%20de%20TVA%20intracommunautaire%2C%20si%20professionnel%20%C3%A9tabli%20dans%20l%27UE%20hors%20de%20France%20%3A%0A%0AJe%20demande%20l%27ex%C3%A9cution%20imm%C3%A9diate%20de%20la%20licence%20et%20renonce%20express%C3%A9ment%20%C3%A0%20mon%20droit%20de%20r%C3%A9tractation.%0AJ%27ai%20pris%20connaissance%20des%20conditions%20d%27utilisation%20et%20je%20les%20accepte.%0A">Commander — 60 €</a>
       <a class="btn btn-buy" href="mailto:store@vdsc.fr?subject=Commande%20VDSTools%20%E2%80%94%20code%20source%20%28240%20%E2%82%AC%20TTC%29&body=Bonjour%2C%0A%0AJe%20souhaite%20acqu%C3%A9rir%20une%20licence%20VDSTools%20%E2%80%94%20code%20source%20%28240%20%E2%82%AC%20TTC%29.%0A%0ANom%20du%20licenci%C3%A9%2C%20tel%20qu%27il%20doit%20figurer%20sur%20la%20licence%20%3A%0AAdresse%20de%20facturation%20%3A%0ANum%C3%A9ro%20de%20TVA%20intracommunautaire%2C%20si%20professionnel%20%C3%A9tabli%20dans%20l%27UE%20hors%20de%20France%20%3A%0A%0AJe%20demande%20l%27ex%C3%A9cution%20imm%C3%A9diate%20de%20la%20licence%20et%20renonce%20express%C3%A9ment%20%C3%A0%20mon%20droit%20de%20r%C3%A9tractation.%0AJ%27ai%20pris%20connaissance%20des%20conditions%20d%27utilisation%20et%20je%20les%20accepte.%0A">Commander — 240 €</a>
       <a class="btn" href="CONDITIONS.md">Conditions</a>
+      </div>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 # Journal des versions
 
-## 1.0.0 — à paraître
+## 1.0.0 — 16 septembre 2026
 
 Première version distribuée.
 

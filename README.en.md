@@ -34,6 +34,10 @@ EU outside France is invoiced net of tax, on production of its VAT number. Per d
 unlimited applications, royalty-free distribution. Orders go to **store@vdsc.fr**; the full terms are in
 [CONDITIONS.en.md](CONDITIONS.en.md).
 
+Payment is by **PayPal invoice**, sent on request and payable by card. State the **licensee name**,
+exactly as it will be copied into the code, and the billing address. The key is sent **within 24
+hours** of payment.
+
 ## Documentation
 
 - [Developer reference — English](docs/reference-en.html)

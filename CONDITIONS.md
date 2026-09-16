@@ -53,7 +53,9 @@ sur le prix de cette nouvelle version.
 
 ## 4. Livraison, rétractation et remboursement
 
-La licence est délivrée par courriel, **sous 24 heures** à compter du paiement.
+Le paiement se fait par **facture PayPal**, adressée par courriel à la demande et réglable par
+carte ou par compte PayPal. La licence est délivrée par courriel, **sous 24 heures** à compter du
+paiement.
 
 **Client professionnel** : le droit de rétractation ne s'applique pas.
 

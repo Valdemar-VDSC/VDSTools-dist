@@ -53,6 +53,7 @@ version.
 
 ## 4. Delivery, withdrawal and refunds
 
+Payment is by **PayPal invoice**, sent by email on request and payable by card or PayPal account.
 The licence is delivered by email, **within 24 hours** of payment.
 
 **Business customers**: no right of withdrawal applies.

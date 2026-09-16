@@ -34,6 +34,10 @@ hors de France est facturé hors taxes, sur communication de son numéro de TVA.
 applications illimitées, distribution sans redevance. L'achat se fait auprès de **store@vdsc.fr** ; les
 conditions complètes sont dans [CONDITIONS.md](CONDITIONS.md).
 
+Le paiement se fait par **facture PayPal**, envoyée à la demande et réglable par carte. Indiquer
+le **nom du licencié**, tel qu'il devra être recopié dans le code, et l'adresse de facturation.
+La clé est envoyée **sous 24 heures** à compter du paiement.
+
 ## Documentation
 
 - [Référence développeur — français](docs/reference-fr.html)

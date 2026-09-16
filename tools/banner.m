@@ -10,96 +10,91 @@ static void draw(NSString *s, NSPoint at, NSFont *f, NSColor *c, CGFloat trackin
   if (tracking != 0) a[NSKernAttributeName] = @(tracking);
   [s drawAtPoint:at withAttributes:a];
 }
-static void render(NSString *out, CGFloat H, BOOL en) {
-  const CGFloat W = 1280, S = 1.5;   // 1920 px de large : assez pour un écran Retina, deux fois moins lourd qu'en 2x
-  const CGFloat dy = (H - 440) / 2;
+static void render(NSString *out, NSString *shotPath, CGFloat H, BOOL en) {
+  const CGFloat W = 1280, S = 1.5;
+  const CGFloat dy = (H - 500) / 2;
   NSColor *ink   = [NSColor colorWithSRGBRed:0.925 green:0.941 blue:0.957 alpha:1];
   NSColor *muted = [NSColor colorWithSRGBRed:0.53 green:0.58 blue:0.63 alpha:1];
   NSColor *acc   = [NSColor colorWithSRGBRed:0.298 green:0.745 blue:0.792 alpha:1];
   NSColor *bg1   = [NSColor colorWithSRGBRed:0.047 green:0.059 blue:0.075 alpha:1];
   NSColor *bg2   = [NSColor colorWithSRGBRed:0.074 green:0.114 blue:0.133 alpha:1];
-  NSColor *card  = [NSColor colorWithSRGBRed:0.086 green:0.11  blue:0.129 alpha:1];
-  NSColor *rule  = [NSColor colorWithSRGBRed:0.16  green:0.20  blue:0.23  alpha:1];
 
   NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
       pixelsWide:W*S pixelsHigh:H*S bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO
       colorSpaceName:NSDeviceRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
   rep.size = NSMakeSize(W, H);
-  NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
   [NSGraphicsContext saveGraphicsState];
-  [NSGraphicsContext setCurrentContext:ctx];
+  [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:rep]];
 
-  // Fond PLAT, et non un dégradé : NSGradient tramait, ce qui faisait un PNG de
-  // 800 Ko pour une image qui n'a qu'une poignée de couleurs. Un aplat, et une
-  // nappe d'accent posée en coin, donnent la même impression pour 30 Ko.
   [bg1 set]; NSRectFill(NSMakeRect(0,0,W,H));
-  // Une nappe d'accent derrière la figure, en douze couches à peine visibles :
-  // le bord franc d'une seule forme se voyait comme un défaut.
   for (int i = 0; i < 12; i++) {
-    CGFloat k = (CGFloat)i / 12.0, r = 240 + k * 320;
+    CGFloat r = 240 + (CGFloat)i/12.0 * 320;
     [[bg2 colorWithAlphaComponent:.075] set];
-    [[NSBezierPath bezierPathWithOvalInRect:
-        NSMakeRect(W*0.76 - r, H*0.52 - r*0.72, r*2, r*1.44)] fill];
+    [[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(W*0.74 - r, H*0.52 - r*0.72, r*2, r*1.44)] fill];
   }
 
-  // ── à droite : une figure abstraite de fenêtre, pas une fausse capture ──
-  CGFloat wx = 720, wy = 74+dy, ww = 490, wh = 292;
-  rrect(NSMakeRect(wx, wy, ww, wh), 12, card, rule, 1);
-  rrect(NSMakeRect(wx, wy+wh-38, ww, 38), 12, [NSColor colorWithSRGBRed:0.11 green:0.14 blue:0.16 alpha:1], nil, 0);
-  NSRectFill(NSMakeRect(wx, wy+wh-39, ww, 1));
-  [rule set]; NSRectFill(NSMakeRect(wx, wy+wh-39, ww, 1));
-  for (int i = 0; i < 3; i++) {
-    NSColor *d = i==0 ? [NSColor colorWithSRGBRed:.98 green:.37 blue:.35 alpha:1]
-               : i==1 ? [NSColor colorWithSRGBRed:.99 green:.74 blue:.24 alpha:1]
-                      : [NSColor colorWithSRGBRed:.35 green:.79 blue:.35 alpha:1];
-    rrect(NSMakeRect(wx+16+i*18, wy+wh-24, 11, 11), 5.5, d, nil, 0);
-  }
-  // barre latérale
-  rrect(NSMakeRect(wx+1, wy+1, 150, wh-40), 0, [NSColor colorWithSRGBRed:0.067 green:0.086 blue:0.102 alpha:1], nil, 0);
-  for (int i = 0; i < 6; i++) {
-    CGFloat y = wy+wh-78-i*30;
-    if (i == 1) rrect(NSMakeRect(wx+10, y-6, 132, 24), 6, [acc colorWithAlphaComponent:.22], nil, 0);
-    rrect(NSMakeRect(wx+20, y, 12, 12), 3, i==1 ? acc : muted, nil, 0);
-    rrect(NSMakeRect(wx+40, y+3, 70+((i*17)%40), 6), 3, [muted colorWithAlphaComponent:i==1?.9:.5], nil, 0);
-  }
-  // contenu : des lignes de tableau
-  for (int i = 0; i < 6; i++) {
-    CGFloat y = wy+wh-78-i*30;
-    if (i % 2) rrect(NSMakeRect(wx+152, y-8, ww-154, 28), 0, [NSColor colorWithSRGBRed:0.1 green:0.126 blue:0.145 alpha:1], nil, 0);
-    rrect(NSMakeRect(wx+172, y+3, 120, 6), 3, [muted colorWithAlphaComponent:.55], nil, 0);
-    rrect(NSMakeRect(wx+320, y+3, 60, 6), 3, [muted colorWithAlphaComponent:.35], nil, 0);
-    rrect(NSMakeRect(wx+400, y, 44, 12), 6, [acc colorWithAlphaComponent:.30], nil, 0);
-  }
+  // ── la capture, recadrée sur la barre latérale et le tableau ──
+  NSImage *shot = [[NSImage alloc] initWithContentsOfFile:shotPath];
+  NSBitmapImageRep *sr = (NSBitmapImageRep *)shot.representations.firstObject;
+  CGFloat px = sr.pixelsWide, py = sr.pixelsHigh;
+  // recadrage en PIXELS de la source ; l'origine d'un NSRect est en bas à gauche.
+  CGFloat cx0 = 0, cx1 = 1960, cyTop = 98, cyBot = 1205;
+  NSRect src = NSMakeRect(cx0, py - cyBot, cx1 - cx0, cyBot - cyTop);
+  src.origin.x *= shot.size.width / px;  src.size.width  *= shot.size.width / px;
+  src.origin.y *= shot.size.height / py; src.size.height *= shot.size.height / py;
 
-  // ── à gauche : le texte ──
-  draw(@"VDSTools", NSMakePoint(80, 250+dy),
-       [NSFont systemFontOfSize:72 weight:NSFontWeightHeavy], ink, -1.6);
-  rrect(NSMakeRect(82, 236+dy, 86, 5), 2.5, acc, nil, 0);
-  draw(en ? @"Native macOS for Xojo, in pure Xojo" : @"macOS natif pour Xojo, en Xojo pur", NSMakePoint(80, 192+dy),
-       [NSFont systemFontOfSize:23 weight:NSFontWeightMedium], ink, 0);
-  draw(en ? @"No plugin, no external framework, no compiled Objective-C —" : @"Aucun plugin, aucun framework externe, aucun Objective-C compilé —", NSMakePoint(80, 160+dy),
-       [NSFont systemFontOfSize:15 weight:NSFontWeightRegular], muted, 0);
-  draw(en ? @"only Declares." : @"uniquement des Declare.", NSMakePoint(80, 138+dy),
-       [NSFont systemFontOfSize:15 weight:NSFontWeightRegular], muted, 0);
+  CGFloat cardW = 700, cardH = cardW * (cyBot - cyTop) / (cx1 - cx0);
+  NSRect card = NSMakeRect(W - cardW - 56, (H - cardH)/2, cardW, cardH);
 
-  NSArray *chips = en ? @[@"100 classes", @"27 IDE controls", @"macOS 15+"] : @[@"100 classes", @"27 contrôles dans l'IDE", @"macOS 15+"];
-  CGFloat cx = 80;
+  [NSGraphicsContext saveGraphicsState];
+  NSShadow *sh = [NSShadow new];
+  sh.shadowColor = [NSColor colorWithSRGBRed:0 green:0 blue:0 alpha:.55];
+  sh.shadowBlurRadius = 34; sh.shadowOffset = NSMakeSize(0, -10);
+  [sh set];
+  rrect(card, 10, [NSColor colorWithSRGBRed:.1 green:.12 blue:.14 alpha:1], nil, 0);
+  [NSGraphicsContext restoreGraphicsState];
+
+  [NSGraphicsContext saveGraphicsState];
+  [[NSBezierPath bezierPathWithRoundedRect:card xRadius:10 yRadius:10] addClip];
+  [shot drawInRect:card fromRect:src operation:NSCompositingOperationSourceOver fraction:1
+      respectFlipped:YES hints:@{NSImageHintInterpolation:@(NSImageInterpolationHigh)}];
+  [NSGraphicsContext restoreGraphicsState];
+  rrect(NSInsetRect(card, .5, .5), 10, nil, [NSColor colorWithSRGBRed:1 green:1 blue:1 alpha:.14], 1);
+
+  // ── le texte ──
+  draw(@"VDSTools", NSMakePoint(64, 288+dy), [NSFont systemFontOfSize:60 weight:NSFontWeightHeavy], ink, -1.4);
+  rrect(NSMakeRect(66, 276+dy, 72, 5), 2.5, acc, nil, 0);
+  draw(en ? @"Native macOS for Xojo," : @"macOS natif pour Xojo,", NSMakePoint(64, 236+dy),
+       [NSFont systemFontOfSize:21 weight:NSFontWeightMedium], ink, 0);
+  draw(en ? @"in pure Xojo" : @"en Xojo pur", NSMakePoint(64, 208+dy),
+       [NSFont systemFontOfSize:21 weight:NSFontWeightMedium], ink, 0);
+  draw(en ? @"No plugin, no external framework," : @"Aucun plugin, aucun framework externe,", NSMakePoint(64, 176+dy),
+       [NSFont systemFontOfSize:14 weight:NSFontWeightRegular], muted, 0);
+  draw(en ? @"no compiled Objective-C — only Declares." : @"aucun Objective-C compilé — que des Declare.", NSMakePoint(64, 156+dy),
+       [NSFont systemFontOfSize:14 weight:NSFontWeightRegular], muted, 0);
+
+  NSArray *chips = en ? @[@"100 classes", @"27 IDE controls", @"macOS 15+"]
+                      : @[@"100 classes", @"27 contrôles dans l'IDE", @"macOS 15+"];
+  CGFloat x = 64, y = 96+dy;
   for (NSString *c in chips) {
-    NSFont *f = [NSFont systemFontOfSize:13 weight:NSFontWeightSemibold];
+    NSFont *f = [NSFont systemFontOfSize:12 weight:NSFontWeightSemibold];
     CGFloat tw = [c sizeWithAttributes:@{NSFontAttributeName:f}].width;
-    rrect(NSMakeRect(cx, 74+dy, tw+26, 30), 15, [acc colorWithAlphaComponent:.14], [acc colorWithAlphaComponent:.45], 1);
-    draw(c, NSMakePoint(cx+13, 82+dy), f, acc, 0);
-    cx += tw + 26 + 10;
+    if (x + tw + 24 > 480) { x = 64; y -= 36; }
+    rrect(NSMakeRect(x, y, tw+24, 28), 14, [acc colorWithAlphaComponent:.14], [acc colorWithAlphaComponent:.45], 1);
+    draw(c, NSMakePoint(x+12, y+7), f, acc, 0);
+    x += tw + 34;
   }
 
   [NSGraphicsContext restoreGraphicsState];
   [[rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:out atomically:YES];
-  printf("%s : %.0fx%.0f à %.0fx\n", out.lastPathComponent.UTF8String, W, H, S);
+  printf("%-16s %.0fx%.0f\n", out.lastPathComponent.UTF8String, W, H);
 }
 int main(int argc, char **argv) { @autoreleasepool {
   [NSApplication sharedApplication];
   NSString *d = [NSString stringWithUTF8String:argv[1]];
-  render([d stringByAppendingPathComponent:@"banner-fr.png"], 440, NO);
-  render([d stringByAppendingPathComponent:@"banner-en.png"], 440, YES);
-  render([d stringByAppendingPathComponent:@"social.png"], 640, NO);
+  NSString *fr = [d stringByAppendingPathComponent:@"shot-fr.png"];
+  NSString *en = [d stringByAppendingPathComponent:@"shot-en.png"];
+  render([d stringByAppendingPathComponent:@"banner-fr.png"], fr, 500, NO);
+  render([d stringByAppendingPathComponent:@"banner-en.png"], en, 500, YES);
+  render([d stringByAppendingPathComponent:@"social.png"],    fr, 640, NO);
 }}

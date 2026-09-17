@@ -45,19 +45,19 @@ La clé est envoyée **sous 24 heures** à compter du paiement.
 - [Référence développeur — français](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-fr.html) — [le fichier](docs/reference-fr.html)
 - [Developer reference — English](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-en.html) — [the file](docs/reference-en.html)
 
-Elle couvre les 100 classes, leurs énumérations, et surtout **57 pièges** : ceux qui ont coûté
+Elle couvre les 101 classes, leurs énumérations, et surtout **58 pièges** : ceux qui ont coûté
 cher, avec leur symptôme, qui presque toujours pointe ailleurs que la cause.
 
 L'application de démonstration en est le complément vivant : **34 pages**, chacune montrant un
 sujet avec son extrait de code dans l'inspecteur, en français et en anglais. Une seconde
-fenêtre, **Contrôles plaçables** (Cmd+4), consacre une page à chacun des 27 contrôles qu'on
+fenêtre, **Contrôles plaçables** (Cmd+4), consacre une page à chacun des 28 contrôles qu'on
 pose dans l'IDE, avec toutes ses options réglables à chaud.
 
 ## Ce que ça apporte
 
 Xojo ne donne accès ni à `NSToolbar`, ni à `NSSplitViewController`, ni à la barre latérale
 source-list, ni aux tableaux à cellules riches, ni aux onglets de fenêtre, ni au menu Fenêtre
-du système. VDSTools compte **100 classes**, réparties par rôle :
+du système. VDSTools compte **101 classes**, réparties par rôle :
 
 | Domaine | Classes | Contenu |
 |---|--:|---|
@@ -66,7 +66,7 @@ du système. VDSTools compte **100 classes**, réparties par rôle :
 | Barre latérale | 3 | Barre latérale plate ou hiérarchique, en style source-list |
 | Barre d'outils | 7 | `NSToolbar` et ses types d'items, personnalisation comprise |
 | Contrôles | 27 | Un contrôle AppKit par classe, du bouton à l'éditeur de texte riche |
-| Contrôles plaçables | 27 | Ceux qu'on **pose dans l'IDE** : quinze héritent d'un contrôle Xojo, douze hébergent un objet AppKit |
+| Contrôles plaçables | 28 | Ceux qu'on **pose dans l'IDE** : quinze héritent d'un contrôle Xojo, treize hébergent un objet AppKit |
 | Surfaces | 9 | Popover, alerte, menus enrichis, vibrance, cadres, 3D |
 | Disposition | 2 | `NSGridView` et `NSStackView` — les deux contrôles qui suppriment les coordonnées |
 | Système | 17 | Barre de menus, panneaux de fichiers, QuickLook, Dock, curseurs, haptique, Finder |

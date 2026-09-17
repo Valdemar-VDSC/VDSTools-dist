@@ -45,18 +45,18 @@ hours** of payment.
 - [Developer reference — English](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-en.html) — [the file](docs/reference-en.html)
 - [Référence développeur — français](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-fr.html) — [le fichier](docs/reference-fr.html)
 
-It covers the 100 classes, their enumerations, and above all **57 traps**: the ones that cost
+It covers the 101 classes, their enumerations, and above all **58 traps**: the ones that cost
 dearly, each with its symptom — which almost always points somewhere other than the cause.
 
 The demo application is its living counterpart: **34 pages**, each showing one subject with its
 code excerpt in the inspector, in French and English. A second window, **Placeable controls**
-(Cmd+4), devotes a page to each of the 27 controls you drop in the IDE, with every option
+(Cmd+4), devotes a page to each of the 28 controls you drop in the IDE, with every option
 adjustable live.
 
 ## What it brings
 
 Xojo exposes neither `NSToolbar`, nor `NSSplitViewController`, nor the source-list sidebar, nor
-view-based tables, nor window tabs, nor the system Window menu. VDSTools adds **100 classes**,
+view-based tables, nor window tabs, nor the system Window menu. VDSTools adds **101 classes**,
 grouped by role:
 
 | Area | Classes | Contents |
@@ -66,7 +66,7 @@ grouped by role:
 | Sidebar | 3 | Flat or hierarchical sidebar, source-list style |
 | Toolbar | 7 | `NSToolbar` and its item types, customisation sheet included |
 | Controls | 27 | One AppKit control per class, from the button to the rich text editor |
-| Placeable controls | 27 | The ones you **drop in the IDE**: fifteen inherit from a Xojo control, twelve host an AppKit object |
+| Placeable controls | 28 | The ones you **drop in the IDE**: fifteen inherit from a Xojo control, twelve host an AppKit object |
 | Surfaces | 9 | Popover, alert, rich menus, vibrancy, boxes, 3D |
 | Layout | 2 | `NSGridView` and `NSStackView` — the two controls that do away with coordinates |
 | System | 17 | Menu bar, file panels, QuickLook, Dock, cursors, haptics, Finder |

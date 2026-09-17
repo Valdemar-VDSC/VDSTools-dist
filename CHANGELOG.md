@@ -1,5 +1,17 @@
 # Journal des versions
 
+## 1.1.0 — 17 septembre 2026
+
+- **`NativeIconButtonControl`** : un bouton à icône qu'on pose dans l'IDE, 28ᵉ contrôle plaçable.
+  Symbole SF, position de l'icône, icône collée au titre, bezel et gabarit dans l'inspecteur ;
+  image de fichier ou `Picture` par le code.
+- **`NativeButton`** : `ImagePosition` et `ImageHugsTitle`, avec les neuf positions d'AppKit,
+  plus `SetImage` et `SetPicture`.
+- **Deux pièges mesurés de plus** : Xojo efface l'image d'un bouton hérité à chaque passage —
+  d'où un contrôle hébergé plutôt qu'un héritage ; et une icône `Above` sort le titre hors du
+  cadre avec le bezel `Push`.
+- 101 classes, 774 méthodes publiques, 58 pièges documentés.
+
 ## 1.0.0 — 16 septembre 2026
 
 Première version distribuée.

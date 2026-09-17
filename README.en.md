@@ -45,7 +45,7 @@ hours** of payment.
 - [Developer reference — English](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-en.html) — [the file](docs/reference-en.html)
 - [Référence développeur — français](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-fr.html) — [le fichier](docs/reference-fr.html)
 
-It covers the 100 classes, their enumerations, and above all **56 traps**: the ones that cost
+It covers the 100 classes, their enumerations, and above all **57 traps**: the ones that cost
 dearly, each with its symptom — which almost always points somewhere other than the cause.
 
 The demo application is its living counterpart: **34 pages**, each showing one subject with its

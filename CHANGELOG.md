@@ -1,5 +1,17 @@
 # Journal des versions
 
+## 1.1.1 — 18 septembre 2026
+
+Correction de l'application de démonstration. **La bibliothèque est inchangée** : rien à
+mettre à jour dans les projets qui l'emploient.
+
+- **Chaque réglage de la fenêtre Contrôles plaçables affichait `^`** au lieu de son résultat —
+  « controlSize = Petite », par exemple. Quatre constantes de la démo étaient tronquées depuis
+  la 1.0.0 ; la principale, employée par tous les réglages, était réduite à son premier caractère.
+- Un second en-tête « Boutons » apparaissait au-dessus du bouton à icône.
+- Le pied de la barre latérale annonçait vingt-sept contrôles au lieu de vingt-huit.
+
+
 ## 1.1.0 — 17 septembre 2026
 
 - **`NativeIconButtonControl`** : un bouton à icône qu'on pose dans l'IDE, 28ᵉ contrôle plaçable.

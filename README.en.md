@@ -66,7 +66,7 @@ grouped by role:
 | Sidebar | 3 | Flat or hierarchical sidebar, source-list style |
 | Toolbar | 7 | `NSToolbar` and its item types, customisation sheet included |
 | Controls | 27 | One AppKit control per class, from the button to the rich text editor |
-| Placeable controls | 28 | The ones you **drop in the IDE**: fifteen inherit from a Xojo control, twelve host an AppKit object |
+| Placeable controls | 28 | The ones you **drop in the IDE**: fifteen inherit from a Xojo control, thirteen host an AppKit object |
 | Surfaces | 9 | Popover, alert, rich menus, vibrancy, boxes, 3D |
 | Layout | 2 | `NSGridView` and `NSStackView` — the two controls that do away with coordinates |
 | System | 17 | Menu bar, file panels, QuickLook, Dock, cursors, haptics, Finder |

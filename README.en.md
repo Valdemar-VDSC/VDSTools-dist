@@ -45,7 +45,7 @@ hours** of payment.
 - [Developer reference — English](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-en.html) — [the file](docs/reference-en.html)
 - [Référence développeur — français](https://valdemar-vdsc.github.io/VDSTools-dist/docs/reference-fr.html) — [le fichier](docs/reference-fr.html)
 
-It covers the 101 classes, their enumerations, and above all **58 traps**: the ones that cost
+It covers the 102 classes, their enumerations, and above all **60 traps**: the ones that cost
 dearly, each with its symptom — which almost always points somewhere other than the cause.
 
 The demo application is its living counterpart: **34 pages**, each showing one subject with its
@@ -56,14 +56,14 @@ adjustable live.
 ## What it brings
 
 Xojo exposes neither `NSToolbar`, nor `NSSplitViewController`, nor the source-list sidebar, nor
-view-based tables, nor window tabs, nor the system Window menu. VDSTools adds **101 classes**,
+view-based tables, nor window tabs, nor the system Window menu. VDSTools adds **102 classes**,
 grouped by role:
 
 | Area | Classes | Contents |
 |---|--:|---|
 | Core | 5 | The bridge to the Objective-C runtime, the owner registry, view hosting, system colours |
 | Window | 3 | `NSSplitViewController` as window chrome, tabs, window level and behaviour |
-| Sidebar | 3 | Flat or hierarchical sidebar, source-list style |
+| Sidebar | 4 | Flat or hierarchical sidebar, source-list style |
 | Toolbar | 7 | `NSToolbar` and its item types, customisation sheet included |
 | Controls | 27 | One AppKit control per class, from the button to the rich text editor |
 | Placeable controls | 28 | The ones you **drop in the IDE**: fifteen inherit from a Xojo control, thirteen host an AppKit object |

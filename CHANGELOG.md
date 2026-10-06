@@ -1,5 +1,23 @@
 # Journal des versions
 
+## 1.2.1 — 6 octobre 2026
+
+Correction d'un contrôle, et le piège qui allait avec. **Rien à changer dans les projets qui
+emploient la bibliothèque**, sauf à vouloir griser un bouton à icône.
+
+- **`NativeIconButtonControl` suit `Enabled`.** Le contrôle héberge un `NSButton` ; `Enabled`
+  appartient à `DesktopCanvas`, qu'une sous-classe ne peut pas redéfinir, et AppKit ne le
+  propage pas aux sous-vues. Le canevas s'éteignait donc seul, tandis que le bouton restait
+  dessiné comme actif — et, puisqu'il est au-dessus, il continuait de recevoir les clics.
+  Désormais le bouton suit `Enabled` au dessin suivant, un clic est refusé dès que le contrôle
+  est éteint, sans attendre aucun dessin, et **`SetEnabled`** fait les deux sur le champ.
+- **La démonstration le montre** : la page Bouton à icône des Contrôles plaçables gagne un
+  interrupteur `Enabled`, à côté de ceux du symbole et du bezel.
+- **Un piège mesuré de plus**, avec sa note : les douze autres contrôles hébergés ont le même
+  angle mort, sans conséquence visible pour ceux qui ne font que montrer.
+- 102 classes, 799 méthodes publiques, 61 pièges documentés.
+
+
 ## 1.2.0 — 6 octobre 2026
 
 Version de barre latérale, née d'un commentaire sur le forum. **Tout est additif** :

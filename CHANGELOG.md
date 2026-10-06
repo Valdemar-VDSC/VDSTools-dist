@@ -1,5 +1,32 @@
 # Journal des versions
 
+## 1.2.0 — 6 octobre 2026
+
+Version de barre latérale, née d'un commentaire sur le forum. **Tout est additif** :
+`SelectionChanged` ne change pas, aucun programme existant n'est à réécrire.
+
+- **`NativeSidebarItem`** : la poignée d'une ligne — `Tag`, `Title`, `Section`, `Index`, `Page`,
+  `IsValid`. Le lien vers la barre est faible : garder des poignées ne retient pas en vie une
+  fenêtre fermée.
+- **Événement `SelectedItem(item, page, title)`** sur les deux barres, à côté de
+  `SelectionChanged`.
+- **Étiquettes.** Sans elle, un programme reconnaît une ligne par son titre, qui est traduit, ou
+  par son numéro de page, qui bouge dès qu'on insère une ligne au-dessus. `AddItem` prend une
+  étiquette et `LastItem` rend la poignée ; la barre plate a `SetTag` et `TagAt`, posés à part —
+  une étiquette optionnelle sur `Add` aurait rendu ambigu tout appel à trois arguments.
+- **Repli des sections depuis le code** : `CollapseSection`, `ExpandSection`, `SectionExpanded`,
+  et `AddSection(titre, repliée)` pour démarrer fermée. Au passage, `ItemAt`, `CurrentItem` et
+  `SelectPage`.
+- **L'état survit à la fermeture** : `AutosaveName` le confie à AppKit ; `SaveState` et
+  `RestoreState` le rendent en JSON, à ranger dans une préférence ou à joindre à un document.
+- **Deux pièges mesurés de plus** : changer une procédure en fonction casse tous ses appels,
+  Xojo refusant d'ignorer une valeur rendue ; et l'autosauvegarde d'un `NSOutlineView` restaure
+  *pendant* `reloadData` — posée après le chargement des lignes, elle enregistre fidèlement sans
+  jamais restaurer.
+- Pas encore là, et demandée : une section imbriquée dans une section.
+- 102 classes, 798 méthodes publiques, 60 pièges documentés.
+
+
 ## 1.1.1 — 18 septembre 2026
 
 Correction de l'application de démonstration. **La bibliothèque est inchangée** : rien à

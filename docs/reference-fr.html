@@ -171,7 +171,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
     <p class="tagline">Chrome de fenêtre, barre d'outils et contrôles macOS natifs, en Xojo pur — aucun plugin, aucun Objective-C compilé. Cible&nbsp;: macOS&nbsp;15 et au-delà.</p>
     <div class="stats">
       <div class="stat"><b>102</b><span>classes</span></div>
-      <div class="stat"><b>799</b><span>méthodes publiques</span></div>
+      <div class="stat"><b>804</b><span>méthodes publiques</span></div>
       <div class="stat"><b>8</b><span>sous-dossiers</span></div>
       <div class="stat"><b>15+</b><span>macOS</span></div>
     </div>
@@ -658,6 +658,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Sub Add(title As String, sfSymbol As String, iconColor As Color)</code></dt>
 <dd class="empty">—</dd>
+<dt><code class="sig">Sub Add(title As String, image As Picture)</code></dt>
+<dd>Une entrée dont l&#x27;icône est une <strong>image à soi</strong> et non un symbole du système. Sans couleur : une teinte ne vaut que pour un symbole, elle repeindrait une vignette en aplat.</dd>
 <dt><code class="sig">Sub AddSection(title As String)</code></dt>
 <dd>En-tête de section : petites capitales grises, non sélectionnable. Genre 2 dans mKinds — 0 = item, 1 = séparateur, 2 = en-tête.</dd>
 <dt><code class="sig">Sub AddSeparator()</code></dt>
@@ -684,6 +686,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd>L&#x27;étiquette de la ligne — un identifiant, un objet métier, ce qu&#x27;on veut ; la bibliothèque ne la lit jamais.<span class="sub">POSÉE À PART, et non en argument d&#x27;<code>Add</code> : <code>Add</code> existe en deux formes, avec et sans couleur. Une étiquette optionnelle ajoutée aux deux rendrait AMBIGU tout appel à trois arguments — un <code>Variant</code> accepte aussi bien une <code>Color</code> — et Xojo refuserait de compiler chez l&#x27;appelant.</span></dd>
 <dt><code class="sig">Function ItemAt(index As Integer) As NativeSidebarItem</code> · <code class="sig">Function CurrentItem() As NativeSidebarItem</code></dt>
 <dd>La poignée d&#x27;une ligne, et celle de la ligne sélectionnée. <code>ItemAt</code> accepte en-têtes et séparateurs ; leur <code>Page</code> vaut -1.</dd>
+<dt><code class="sig">Sub SetImage(index As Integer, image As Picture)</code></dt>
+<dd>L&#x27;image d&#x27;une entrée DÉJÀ POSÉE, ou son retrait par <code>Nil</code>. Poser une image efface le symbole.<span class="sub">Gardée dans le modèle et relue à chaque construction de cellule : elle survit aux rechargements, aux ajouts, aux retraits et au défilement. Recharge la liste d&#x27;elle-même, comme <code>SetBadge</code> — à la différence de <code>NativeTableView.SetRowImage</code>, où le rafraîchissement reste au choix de l&#x27;appelant.</span></dd>
 <dt><code class="sig">Sub SetBadge(index As Integer, text As String)</code></dt>
 <dd>Compteur en pastille sur une entrée, façon Mail. Chaîne vide = pas de pastille.</dd>
 <dt><code class="sig">Sub SetFooter(title As String, sfSymbol As String)</code></dt>
@@ -732,6 +736,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Function ItemCount(section As Integer) As Integer</code></dt>
 <dd class="empty">—</dd>
+<dt><code class="sig">Sub SetImage(section As Integer, item As Integer, image As Picture)</code></dt>
+<dd>Une <strong>image à soi</strong> sur une entrée, à la place du symbole ; <code>Nil</code> l&#x27;enlève.<span class="sub">Pas de surcharge d&#x27;<code>AddItem</code> : une Picture en troisième place rendrait ambigu tout appel passant Nil. Le réglage se fait après l&#x27;ajout, comme la pastille et l&#x27;étiquette.</span></dd>
 <dt><code class="sig">Sub SetBadge(section As Integer, item As Integer, text As String)</code></dt>
 <dd>Compteur en pastille sur une entrée. Chaîne vide = pas de pastille.</dd>
 <dt><code class="sig">Function SectionCount() As Integer</code></dt>
@@ -1468,7 +1474,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd>Le lien avec les méthodes de ligne héritées, qui prennent une ligne de <strong>stockage</strong>.<span class="sub">La ligne change dès qu'on insère, retire ou déplace ailleurs&nbsp;: ne pas la garder, garder le nœud.</span></dd>
 </dl></div>
 <div class="block"><h4>Cellules, sélection et repli, en nœuds</h4><dl class="api">
-<dt><code class="sig">Function NodeCell(node, column) As String · Sub SetNodeCell(node, column, value)<br>Function NodeChecked(node, column) As Boolean · Sub SetNodeChecked(node, column, checked)<br>Sub SetNodeIcon(node, symbolName) · Sub SetNodeSubtitle(node, column, subtitle)<br>Sub SetNodeBold(node, column, bold) · Sub SetNodeTextColor(node, column, textColor)<br>Sub SetNodeBackground(node, column, backColor) · Sub ReloadNode(node)</code></dt>
+<dt><code class="sig">Function NodeCell(node, column) As String · Sub SetNodeCell(node, column, value)<br>Function NodeChecked(node, column) As Boolean · Sub SetNodeChecked(node, column, checked)<br>Sub SetNodeIcon(node, symbolName) · Sub SetNodeImage(node, image) · Sub SetNodeSubtitle(node, column, subtitle)<br>Sub SetNodeBold(node, column, bold) · Sub SetNodeTextColor(node, column, textColor)<br>Sub SetNodeBackground(node, column, backColor) · Sub ReloadNode(node)</code></dt>
 <dd>La version nœud de chaque méthode de ligne héritée&nbsp;: <code>RowOf</code> fait la traduction. <code>ReloadNode</code> redessine un nœud déjà affiché — après un <code>SetNodeIcon</code>, par exemple.</dd>
 <dt><code class="sig">Sub SelectNode(node) · Function SelectedNode() As NativeOutlineNode<br>Function SelectedNodes() As NativeOutlineNode() · Sub ScrollToNode(node)<br>Sub ExpandNode(node, withChildren As Boolean = False) · Sub CollapseNode(node, withChildren As Boolean = False)<br>Function IsNodeExpanded(node) As Boolean · Sub ExpandAll() · Sub CollapseAll()</code></dt>
 <dd><code>SelectNode(Nil)</code> désélectionne. Un nœud sous un parent replié n'a pas de ligne à l'écran&nbsp;: il ne se sélectionne pas.</dd>
@@ -1950,6 +1956,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Sub SetRowIcon(row As Integer, symbolName As String)</code></dt>
 <dd>Un symbole système au début de la PREMIÈRE colonne. Le nom est celui de SF Symbols — « folder », « doc.text » — et une chaîne vide l&#x27;enlève.</dd>
+<dt><code class="sig">Sub SetRowImage(row As Integer, image As Picture)</code></dt>
+<dd>Une <strong>image à soi</strong> à la même place — vignette, favicon, logo — là où <code>SetRowIcon</code> ne prend qu&#x27;un symbole du système. <code>Nil</code> l&#x27;enlève, et poser l&#x27;une efface l&#x27;autre : une ligne n&#x27;a qu&#x27;une icône.<span class="sub">Aussi persistante que le symbole : l&#x27;image vit dans le modèle et est relue à CHAQUE construction de cellule, donc elle survit au rechargement, au tri, au déplacement de ligne et au défilement. Elle est redimensionnée proportionnellement dans 16 points, sans jamais être agrandie. Le NSImage est reconstruit à chaque cellule — la Picture reste la seule copie gardée, et rien ne peut fuir ; un cache par ligne serait la suite, après mesure. Elle écrit dans le MODÈLE et ne redessine pas d&#x27;elle-même, comme <code>SetRowIcon</code> : <code>ReloadRow(row)</code> refait la seule cellule concernée.</span></dd>
 </dl></div>
 <div class="block"><h4>Propriétés</h4><dl class="api">
 <dt><code class="sig">SelectedRow As Integer</code> <span class="ro">lecture seule</span></dt>

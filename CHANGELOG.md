@@ -1,5 +1,33 @@
 # Journal des versions
 
+## 1.3.0 — 8 octobre 2026
+
+Une **image à soi** comme icône de ligne, là où seul un symbole SF était accepté — dans les
+deux barres latérales, dans le tableau et dans l'arborescence. Tout est additif.
+
+- **`NativeTableView.SetRowImage(row, image)`** et **`NativeOutlineView.SetNodeImage(node, image)`**
+  posent une `Picture` au début de la première colonne ; `Nil` l'enlève.
+- **`NativeSidebar.Add(title, image)`** ajoute une entrée dont l'icône est une image, et
+  **`SetImage(index, image)`** la pose sur une entrée déjà là. La barre hiérarchique a
+  **`SetImage(section, item, image)`**.
+- **AUSSI PERSISTANTE QU'UN SYMBOLE**, ce qui était la demande : l'image vit dans le modèle et
+  est relue à chaque construction de cellule. Elle survit donc au rechargement, au tri, au
+  déplacement d'une ligne, au repli d'une section et au défilement.
+- **Image et symbole s'excluent** : poser l'une efface l'autre, pour qu'il n'y ait jamais deux
+  icônes à départager. Une image n'est pas teintée — `contentTintColor` ne vaut que pour un
+  symbole et repeindrait une vignette en aplat — et elle est réduite proportionnellement,
+  jamais agrandie.
+- **Une fuite de vues corrigée dans les deux barres latérales.** Les cellules, leurs libellés,
+  leurs icônes, les pastilles et les vues de ligne étaient alloués sans être rendus : cela
+  fuyait à chaque construction de cellule, donc à chaque rechargement et chaque fois qu'une
+  ligne redevenait visible. Neuf objets par cellule au plus. C'est la correction faite dans le
+  tableau en septembre, qui n'avait pas été reportée ici — et elle devenait coûteuse avec des
+  images.
+- La démonstration le montre : un interrupteur sur les pages Tableau et Arborescence, et le
+  disque de la barre latérale hiérarchique porte désormais une image fabriquée en code.
+- 102 classes, 804 méthodes publiques, 61 pièges documentés.
+
+
 ## 1.2.1 — 6 octobre 2026
 
 Correction d'un contrôle, et le piège qui allait avec. **Rien à changer dans les projets qui

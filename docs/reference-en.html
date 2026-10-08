@@ -171,7 +171,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
     <p class="tagline">Native macOS window chrome, toolbar and controls, in pure Xojo — no plugin, no compiled Objective-C. Target: macOS&nbsp;15 and later.</p>
     <div class="stats">
       <div class="stat"><b>102</b><span>classes</span></div>
-      <div class="stat"><b>799</b><span>public methods</span></div>
+      <div class="stat"><b>804</b><span>public methods</span></div>
       <div class="stat"><b>8</b><span>subfolders</span></div>
       <div class="stat"><b>15+</b><span>macOS</span></div>
     </div>
@@ -658,6 +658,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Sub Add(title As String, sfSymbol As String, iconColor As Color)</code></dt>
 <dd class="empty">—</dd>
+<dt><code class="sig">Sub Add(title As String, image As Picture)</code></dt>
+<dd>An entry whose icon is an <strong>image of your own</strong> rather than a system symbol. No colour: a tint only means something on a symbol, and would repaint a thumbnail as a flat shape.</dd>
 <dt><code class="sig">Sub AddSection(title As String)</code></dt>
 <dd>Section header: small grey capitals, not selectable. Kind 2 in mKinds — 0 = item, 1 = separator, 2 = header.</dd>
 <dt><code class="sig">Sub AddSeparator()</code></dt>
@@ -684,6 +686,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd>The row tag — an identifier, a business object, anything; the library never reads it.<span class="sub">SET APART, not as an argument to <code>Add</code>: <code>Add</code> comes in two forms, with and without a colour. An optional tag added to both would make every three-argument call AMBIGUOUS — a <code>Variant</code> accepts a <code>Color</code> just as well — and Xojo would refuse to compile at the call site.</span></dd>
 <dt><code class="sig">Function ItemAt(index As Integer) As NativeSidebarItem</code> · <code class="sig">Function CurrentItem() As NativeSidebarItem</code></dt>
 <dd>The handle of a row, and of the selected one. <code>ItemAt</code> accepts headers and separators; their <code>Page</code> is -1.</dd>
+<dt><code class="sig">Sub SetImage(index As Integer, image As Picture)</code></dt>
+<dd>The image of an entry ALREADY ADDED, or its removal with <code>Nil</code>. Setting an image clears the symbol.<span class="sub">Kept in the model and re-read on every cell build: it survives reloads, additions, removals and scrolling. It reloads the list by itself, like <code>SetBadge</code> — unlike <code>NativeTableView.SetRowImage</code>, where refreshing is left to the caller.</span></dd>
 <dt><code class="sig">Sub SetBadge(index As Integer, text As String)</code></dt>
 <dd>A badge counter on an entry, Mail-style. An empty string = no badge.</dd>
 <dt><code class="sig">Sub SetFooter(title As String, sfSymbol As String)</code></dt>
@@ -732,6 +736,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Function ItemCount(section As Integer) As Integer</code></dt>
 <dd class="empty">—</dd>
+<dt><code class="sig">Sub SetImage(section As Integer, item As Integer, image As Picture)</code></dt>
+<dd>An <strong>image of your own</strong> on an entry, in place of the symbol; <code>Nil</code> removes it.<span class="sub">No <code>AddItem</code> overload: a Picture in third place would make every call passing Nil ambiguous. It is set after the item is added, like the badge and the tag.</span></dd>
 <dt><code class="sig">Sub SetBadge(section As Integer, item As Integer, text As String)</code></dt>
 <dd>A badge counter on an entry. An empty string = no badge.</dd>
 <dt><code class="sig">Function SectionCount() As Integer</code></dt>
@@ -1468,7 +1474,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd>The link to the inherited row methods, which take a <strong>storage</strong> row.<span class="sub">The row changes as soon as something is inserted, removed or moved elsewhere: do not keep it, keep the node.</span></dd>
 </dl></div>
 <div class="block"><h4>Cells, selection and expansion, by node</h4><dl class="api">
-<dt><code class="sig">Function NodeCell(node, column) As String · Sub SetNodeCell(node, column, value)<br>Function NodeChecked(node, column) As Boolean · Sub SetNodeChecked(node, column, checked)<br>Sub SetNodeIcon(node, symbolName) · Sub SetNodeSubtitle(node, column, subtitle)<br>Sub SetNodeBold(node, column, bold) · Sub SetNodeTextColor(node, column, textColor)<br>Sub SetNodeBackground(node, column, backColor) · Sub ReloadNode(node)</code></dt>
+<dt><code class="sig">Function NodeCell(node, column) As String · Sub SetNodeCell(node, column, value)<br>Function NodeChecked(node, column) As Boolean · Sub SetNodeChecked(node, column, checked)<br>Sub SetNodeIcon(node, symbolName) · Sub SetNodeImage(node, image) · Sub SetNodeSubtitle(node, column, subtitle)<br>Sub SetNodeBold(node, column, bold) · Sub SetNodeTextColor(node, column, textColor)<br>Sub SetNodeBackground(node, column, backColor) · Sub ReloadNode(node)</code></dt>
 <dd>The node version of each inherited row method: <code>RowOf</code> does the translation. <code>ReloadNode</code> redraws a node already on screen — after a <code>SetNodeIcon</code>, for instance.</dd>
 <dt><code class="sig">Sub SelectNode(node) · Function SelectedNode() As NativeOutlineNode<br>Function SelectedNodes() As NativeOutlineNode() · Sub ScrollToNode(node)<br>Sub ExpandNode(node, withChildren As Boolean = False) · Sub CollapseNode(node, withChildren As Boolean = False)<br>Function IsNodeExpanded(node) As Boolean · Sub ExpandAll() · Sub CollapseAll()</code></dt>
 <dd><code>SelectNode(Nil)</code> deselects. A node under a collapsed parent has no row on screen: it cannot be selected.</dd>
@@ -1950,6 +1956,8 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd class="empty">—</dd>
 <dt><code class="sig">Sub SetRowIcon(row As Integer, symbolName As String)</code></dt>
 <dd>A system symbol at the start of the FIRST column. The name is the SF Symbols one — “folder”, “doc.text” — and an empty string removes it.</dd>
+<dt><code class="sig">Sub SetRowImage(row As Integer, image As Picture)</code></dt>
+<dd>An <strong>image of your own</strong> in the same place — thumbnail, favicon, logo — where <code>SetRowIcon</code> only takes a system symbol. <code>Nil</code> removes it, and setting one clears the other: a row has a single icon.<span class="sub">As persistent as the symbol: the image lives in the model and is re-read on EVERY cell build, so it survives a reload, a sort, a row move and scrolling. It is scaled proportionally into 16 points and never enlarged. The NSImage is rebuilt per cell — the Picture stays the only copy held, so nothing can leak; a per-row cache would be the next step, after measurement. It writes to the MODEL and does not redraw by itself, like <code>SetRowIcon</code>: <code>ReloadRow(row)</code> rebuilds the one cell concerned.</span></dd>
 </dl></div>
 <div class="block"><h4>Properties</h4><dl class="api">
 <dt><code class="sig">SelectedRow As Integer</code> <span class="ro">read-only</span></dt>

@@ -1,5 +1,29 @@
 # Journal des versions
 
+## 1.3.1 — 9 octobre 2026
+
+**Correction d'un plantage de la 1.3.0.** Sélectionner une ligne dont l'icône est une `Picture`
+faisait planter une application **construite** — jamais sous l'IDE. Toute application qui emploie
+les images de ligne de la 1.3.0 doit être reconstruite avec cette version.
+
+- **La cause** : `Picture.CopyOSHandle(MacNSImage)` rend un objet **autorelâché**, malgré le
+  « Copy » de son nom. La bibliothèque le relâchait après l'avoir posé, croyant en être devenue
+  propriétaire : une sur-libération. La vue retenant l'image, l'affichage restait juste ; c'est au
+  vidage du pool que l'image mourait sous la vue qui la désignait encore, et le plantage arrivait
+  au rafraîchissement suivant — `EXC_BAD_ACCESS` dans `objc_release`, appelé depuis
+  `objc_autoreleasePoolPop`, sans une seule image Xojo dans la pile.
+- **Corrigé aux trois endroits** : les deux barres latérales, le tableau et l'arborescence, et
+  `NativeButton.SetPicture` — où la même croyance dormait depuis la 1.1.0 sans se montrer, faute
+  d'avoir jamais été appelée dans une application construite. C'est de là qu'elle avait été
+  recopiée.
+- **Le 62ᵉ piège**, avec sa preuve : un handle rendu par le framework Xojo est PRÊTÉ, et la
+  convention « copy » d'Objective-C ne s'y applique pas.
+- Rien d'autre ne change : aucune signature, aucun comportement visible.
+
+Merci à l'acheteur qui l'a signalé avec sa pile d'appel et son tableau de cas — c'est le tableau
+qui a isolé la variable, et la pile qui a donné la preuve.
+
+
 ## 1.3.0 — 8 octobre 2026
 
 Une **image à soi** comme icône de ligne, là où seul un symbole SF était accepté — dans les

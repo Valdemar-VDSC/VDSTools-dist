@@ -1,5 +1,26 @@
 # Journal des versions
 
+## 1.3.2 — 11 octobre 2026
+
+**Le texte d'une colonne à sous-titre était tronqué**, quelle que soit la largeur de la colonne.
+
+- **La cause** : une cellule est bâtie contre une largeur d'attente de 120 points, puis AppKit la
+  redimensionne à la colonne réelle. Ce qu'on y pose ne s'étire que s'il porte un masque de
+  redimensionnement — l'étiquette, la jauge et le menu en avaient un depuis toujours, la boîte
+  qui empile le titre et le sous-titre n'en avait pas. Elle restait donc large de 116 points, ou
+  96 avec une icône, dans une colonne de 400, et un rechargement n'y changeait rien puisqu'une
+  cellule neuve sortait pareille.
+- **Corrigé** : la boîte suit la cellule en largeur et en hauteur, les deux champs suivent la
+  boîte en largeur et restent tenus en haut. Plus rien à faire côté appelant — ni masque posé à
+  la main dans `didAddRowView`, ni reprise après `ReloadRow`.
+- La page Tableau de la démonstration le montre : sa colonne à sous-titre se redimensionne, et le
+  texte suit désormais le bord qu'on tire.
+- Rien d'autre ne change : aucune signature, aucun autre comportement.
+
+Signalé, mesuré et contourné par le même acheteur que la 1.3.1 — largeurs et masques relevés
+cellule par cellule, ce qui ne laissait plus qu'à poser les trois masques manquants.
+
+
 ## 1.3.1 — 9 octobre 2026
 
 **Correction d'un plantage de la 1.3.0.** Sélectionner une ligne dont l'icône est une `Picture`

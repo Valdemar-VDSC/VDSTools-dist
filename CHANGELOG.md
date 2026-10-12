@@ -1,5 +1,34 @@
 # Journal des versions
 
+## 1.3.4 — 12 octobre 2026
+
+**Le curseur porte quelque chose hors de la table**, et la carte n'a plus de liseré clair.
+
+- **Une pile suit le curseur dehors.** L'ombre du glisser est une vue posée DANS la table : elle
+  ne pouvait rien montrer au-delà de ses bords, et l'image d'AppKit était vidée faute de contenu
+  utilisable. Le curseur ne portait donc plus rien dès qu'on sortait de la liste — gênant quand
+  les lignes se déposent ailleurs, sur une barre latérale par exemple. La bibliothèque compose
+  désormais une **pile à la manière de Mail** : jusqu'à trois vignettes décalées, et une pastille
+  rouge comptant les lignes au-delà d'une seule.
+- **L'une ou l'autre, jamais les deux** : la carte tant qu'on est dans la table, la pile dès qu'on
+  en sort. Montrées ensemble, elles se marchaient dessus — constaté à l'image. L'échange se fait
+  **du côté de la source**, dans `draggingSession:movedToPoint:` : une vue qui n'est plus la
+  destination n'a plus rien à dire sur les éléments du glisser, tandis que la source tient sa
+  session d'un bout à l'autre, où que le curseur aille.
+- **La vignette est un MORCEAU de la ligne, à sa taille réelle**, et non la ligne entière réduite :
+  une ligne est large et basse, et rapetissée elle devient un bandeau dont on ne lit plus rien.
+- **Le compte des lignes est laissé à AppKit**, qui dessine déjà sa pastille rouge : en ajouter une
+  seconde en aurait donné deux.
+- **Les deux bandes claires en haut et en bas de la carte** avaient deux causes, toutes deux
+  corrigées. La photo, d'abord : `rectOfRow` rend la ligne ET l'espace qui la sépare de la
+  suivante, et cet espace est du fond de table ; elle s'arrête maintenant où la ligne s'arrête,
+  l'espacement étant lu sur `intercellSpacing` plutôt qu'écrit en dur. La carte, ensuite : elle
+  gardait quatre points de marge en haut et en bas pour que son liseré ne mange pas le contenu,
+  et ces quatre points laissaient voir son propre fond — blanc en apparence claire — au-dessus
+  d'une ligne sélectionnée bleue. La marge est supprimée : le liseré recouvre les deux points
+  extrêmes de la photo, qui sont le bord de la ligne et où rien n'est dessiné.
+
+
 ## 1.3.3 — 11 octobre 2026
 
 **Trois défauts du glisser de lignes**, tous signalés avec leurs mesures.

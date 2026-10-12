@@ -1,5 +1,31 @@
 # Journal des versions
 
+## 1.3.3 — 11 octobre 2026
+
+**Trois défauts du glisser de lignes**, tous signalés avec leurs mesures.
+
+- **L'ombre suit le curseur.** Elle n'était déplacée que depuis `validateDrop`, qu'AppKit n'appelle
+  pas à chaque mouvement mais seulement quand la destination proposée change — cinq fois sur un
+  glisser de 95 points, d'où des bonds de 11 à 24 points. La table est désormais instanciée depuis
+  une sous-classe qui redéfinit `draggingUpdated:`, appelée à chaque mouvement. C'est le **premier
+  appel à `super` de la bibliothèque**, et il est obligatoire : c'est super qui calcule la ligne
+  proposée, dessine le trait d'insertion et appelle `validateDrop`. Si la sous-classe ne peut pas
+  être créée, la table retombe sur la classe d'origine et l'ombre avance par bonds, comme avant.
+- **Le trait d'insertion ne traverse plus l'ombre.** AppKit ajoute sa vue de destination APRÈS
+  l'ombre et la repasse devant à chaque mise à jour : l'ordre des sous-vues ne peut pas gagner.
+  Le calque de l'ombre porte maintenant un `zPosition` élevé, qui décide de l'ordre de dessin quoi
+  qu'il arrive.
+- **Le trait va au bord de ligne le plus proche.** Recadrer un dépôt « sur » une ligne en dépôt
+  « au-dessus » de la même ligne renvoyait le trait au bord supérieur dès qu'on entrait dans la
+  moitié basse, puis au bord suivant quand AppKit reproposait « au-dessus » : un va-et-vient à
+  chaque ligne traversée.
+
+Les trois contournements que l'acheteur avait écrits — sous-classe, `zPosition` et recadrage —
+deviennent inutiles : la bibliothèque les porte.
+
+La page Tableau de la démonstration permet de le voir : le glisser de lignes y est actif.
+
+
 ## 1.3.2 — 11 octobre 2026
 
 **Le texte d'une colonne à sous-titre était tronqué**, quelle que soit la largeur de la colonne.

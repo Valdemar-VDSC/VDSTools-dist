@@ -1,10 +1,11 @@
 # Journal des versions
 
-## 1.5.0 — 14 octobre 2026
+## 1.5.0 — à paraître
 
-**Les trous de l'API du tableau, comblés** — et un défaut du tri trouvé en les comblant.
-Trente-neuf méthodes et sept propriétés de plus sur `NativeTableView`, toutes adossées à quelque
-chose que `NSTableView` savait déjà faire.
+**Tout ce que le tableau ne savait pas encore faire.** Quarante-six méthodes et sept propriétés de
+plus sur `NativeTableView` — les trous de son API comblés, un défaut du tri trouvé en les
+comblant, et le dépôt entrant qui ferme la 1.4.0. Rien de ce qui compilait hier ne compile
+autrement : aucune signature ne change.
 
 - **Le tri laissait les sous-titres sur place.** `SortBy` reconstruisait dix tableaux parallèles
   et oubliait le onzième : le texte changeait de ligne, le sous-titre restait à la sienne. Présent
@@ -37,7 +38,6 @@ chose que `NSTableView` savait déjà faire.
   `SetGridColor` et `ClearGridColor` teintent les traits de grille.
 - **Texte et fichiers délimités** : `Content` en lecture et en écriture, `ImportDelimited` et
   `ExportDelimited` avec les guillemets du RFC 4180 dans les deux sens.
-- 102 classes, 844 méthodes publiques, 62 pièges documentés.
 
 La page Tableau de la démonstration montre les quatre qui se voient : l'info-bulle de cellule,
 la case indéterminée, la colonne masquée et les encarts de contenu.
@@ -45,6 +45,38 @@ la case indéterminée, la colonne masquée et les encarts de contenu.
 Le contrôle plaçable n'expose rien de neuf dans l'Inspecteur : tout cela s'appelle sur la table
 qu'il héberge, par `Table()`. Relevé en lisant l'API de la `DesktopTable` que Xojo 2026r3 ajoute
 à son framework — ce qui manquait chez nous y était nommé.
+
+### Le dépôt entrant
+
+**La table accepte ce qui vient du dehors** — la moitié manquante de la 1.4.0. Depuis celle-ci,
+une ligne savait sortir vers TextEdit ou vers Mail ; la table, elle, n'acceptait que ses propres
+lignes, et seulement si le réordonnancement était permis.
+
+- **`AcceptDragType`**, avec les deux raccourcis **`AcceptFileDrop`** et **`AcceptTextDrop`**, et
+  **`ClearDragTypes`** pour ne plus rien accepter. Rien n'est accepté tant qu'aucun type n'est
+  demandé : une table qui dirait oui à tout afficherait un curseur de dépôt sur ce qu'elle ne sait
+  pas lire. Les raccourcis **lisent** la constante système au lieu de recopier son texte — une
+  chaîne recopiée devient fausse sans prévenir, et le dépôt échouerait alors en silence.
+- **`AcceptDrop`** dit que le dépôt a eu lieu, avec la ligne ET l'endroit : `OnRow` sur la ligne,
+  `BetweenRows` sur un bord — `row` est alors le rang du bord —, `OnTable` hors de toute ligne.
+- **`ShouldRefuseDrop`** pour refuser au survol, avant que l'utilisateur ne lâche. Il demande ce
+  qu'il faut **refuser**, comme `ShouldRefuseColumnReorder` : sans gestionnaire branché, un
+  événement qui rend un Booléen rend `False`, donc poser la question à l'endroit ferait refuser
+  tous les dépôts d'un appelant qui a pourtant demandé un type.
+- **`DragFiles`**, **`DragText`** et **`DragHasType`**, partagées : lire ce que le dépôt porte sans
+  un seul `Declare`, le pendant d'`AddDragType` qui écrit. `DragText` rend **une ligne par
+  élément** — un dépôt de trois lignes en porte trois, et le presse-papiers interrogé d'un bloc ne
+  rendrait que la première.
+- **Un dépôt venu du dehors est une COPIE.** Ce qui vient d'ailleurs n'est pas à nous, et une autre
+  application ne doit pas voir son élément s'en aller ; le réordonnancement reste un déplacement.
+- **L'arborescence refuse** un dépôt venu du dehors : ses méthodes de source lui sont propres, à
+  nœud et indice d'enfant plutôt qu'à ligne. Rien ne plante, le curseur dit non.
+
+La page Tableau de la démonstration l'accepte désormais : déposez un fichier depuis le Finder ou
+du texte depuis TextEdit, sur une ligne ou entre deux, et le pied de page dit ce qui est arrivé et
+où. Le branchement passe par `AddHandler PGTbl.Table.AcceptDrop`.
+
+**102 classes, 851 méthodes publiques, 62 pièges documentés.**
 
 
 ## 1.4.0 — 14 octobre 2026

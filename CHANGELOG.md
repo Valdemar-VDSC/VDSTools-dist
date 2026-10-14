@@ -1,5 +1,31 @@
 # Journal des versions
 
+## 1.4.0 — 14 octobre 2026
+
+**Une ligne peut sortir de la table sans que la table se réordonne.**
+
+- **`AllowsRowDragging`**, nouvelle et indépendante d'`AllowsRowReordering`. Jusqu'ici, le
+  réordonnancement commandait tout : à `False`, `pasteboardWriterForRow:` rendait `Nil` et le
+  masque de source tombait à zéro — donc **aucun glisser ne partait**, pas même vers une barre
+  latérale ou une autre application. Le nom disait « réordonner », le code disait « tout
+  glisser ». Les deux se combinent désormais librement : réordonner seulement, sortir seulement,
+  les deux, ou rien.
+- **Le glisser vers une autre application** est permis pour la première fois, en COPIE : le
+  masque de source n'était posé que pour les glissers locaux.
+- **`WritingRow`** et **`AddDragType`** : l'événement est levé au moment où la ligne est saisie,
+  et la méthode y pose un type de plus sans écrire un seul `Declare`. Le contrôle plaçable ne le relaie pas :
+  on l'accroche sur la table qu'il héberge, `AddHandler monTableau.Table.WritingRow, AddressOf …`,
+  `Table()` étant là pour ce que l'Inspecteur n'expose pas. Ce que la table écrit
+  d'elle-même est l'indice de la ligne, sous un type privé qui ne veut rien dire hors d'elle :
+  sans cela, un dépôt sur Mail ou sur le Finder ne recevait rien.
+- La carte et la pile suivent dans tous les cas, puisqu'elles ne dépendaient que du glisser.
+- Le contrôle plaçable expose la propriété dans l'Inspecteur, à côté de `AllowsRowReordering`.
+- 102 classes, 805 méthodes publiques, 62 pièges documentés.
+
+Signalé par le même acheteur, qui contournait en remplaçant `pasteboardWriterForRow:` et en
+reposant le masque après chaque changement : les deux crochets peuvent partir.
+
+
 ## 1.3.4 — 12 octobre 2026
 
 **Le curseur porte quelque chose hors de la table**, et la carte n'a plus de liseré clair.

@@ -171,7 +171,7 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
     <p class="tagline">Native macOS window chrome, toolbar and controls, in pure Xojo — no plugin, no compiled Objective-C. Target: macOS&nbsp;15 and later.</p>
     <div class="stats">
       <div class="stat"><b>102</b><span>classes</span></div>
-      <div class="stat"><b>804</b><span>public methods</span></div>
+      <div class="stat"><b>805</b><span>public methods</span></div>
       <div class="stat"><b>8</b><span>subfolders</span></div>
       <div class="stat"><b>15+</b><span>macOS</span></div>
     </div>
@@ -2027,6 +2027,12 @@ footer{border-top:1px solid var(--rule); padding:1.6rem 0 3rem; color:var(--mute
 <dd>The veto. <strong>It asks what to REFUSE, not what to allow</strong>, and the inversion is deliberate: a <code>RaiseEvent</code> with no handler returns <code>False</code>, so asking the question the other way round would forbid every move by default. Inverted, no handler means everything is allowed — like AppKit when the delegate method is not implemented.<span class="sub"><code>toColumn</code> is <code>-1</code> on the FIRST call, when the column is grabbed and before any destination exists. The header says so: refusing at that moment forbids moving that column at all.</span></dd>
 </dl></div>
 <div class="block"><h4>Row dragging</h4><dl class="api">
+<dt><code class="sig">AllowsRowDragging As Boolean</code></dt>
+<dd><strong>Leaving without reordering</strong>: rows can be dragged out of the table — onto a sidebar, another view, another application — without the table accepting its own rows as a drop.<span class="sub">Until 1.3.4, <code>AllowsRowReordering</code> governed both: with it off, <code>pasteboardWriterForRow:</code> returned nil and the source mask dropped to zero, so no drag started at all. The two properties now combine freely. Away from the application the operation is a COPY: the row here does not leave.</span></dd>
+<dt><code class="sig">Shared Sub AddDragType(pasteboardItem As Ptr, uti As String, text As String)</code></dt>
+<dd>Puts one more type on the item the table is about to drag, from the <code>WritingRow</code> event. The UTI is a system one — <code>public.utf8-plain-text</code>, <code>public.file-url</code> — or your own, in reverse-domain notation.<span class="sub">Without it a drop OUTSIDE the table receives nothing: what the table writes by itself is the row index, under a private type that means nothing elsewhere.</span></dd>
+<dt><code class="sig">Event WritingRow(row As Integer, pasteboardItem As Ptr)</code></dt>
+<dd>Raised as a row is grabbed, before the drag leaves: the place to put what the row carries.<span class="sub">The placeable control does NOT relay it: hook it on the table it hosts — <code>AddHandler PGTbl.Table.WritingRow, AddressOf …</code> — <code>Table()</code> being there for what the Inspector does not expose.</span></dd>
 <dt><code class="sig">AllowsRowReordering As Boolean</code></dt>
 <dd>Move a row by dragging it with the mouse. The drop calls <code>MoveRow</code>, so the move animation serves here with no extra line of code. <strong>Also valid for <code>NativeOutlineView</code></strong> since 14 September 2026, through its own data source methods — see its card.<span class="sub"><strong>As in Numbers</strong>: the original row stays in place and selected, a <strong>ghost</strong> — a copy of the grabbed rows on a card with an accent-colour border and a pronounced drop shadow — follows the cursor inside the table, and AppKit draws the insertion line (<strong>Regular</strong> feedback style). Non-contiguous rows are packed together in the ghost.</span><span class="sub">The ghost is a real view placed in the table, made of photos taken when the rows are grabbed; AppKit&#x27;s drag image is emptied. The <strong>Gap</strong> style, used at first, hid the grabbed row: the selection vanished and an empty hole remained. A drop proposed <em>on</em> a row is retargeted <em>above</em> it.</span></dd>
 <dt><code class="sig">Event RowsMoved(sources() As Integer, firstRow As Integer)</code></dt>

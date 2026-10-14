@@ -1,5 +1,52 @@
 # Journal des versions
 
+## 1.5.0 — 14 octobre 2026
+
+**Les trous de l'API du tableau, comblés** — et un défaut du tri trouvé en les comblant.
+Trente-neuf méthodes et sept propriétés de plus sur `NativeTableView`, toutes adossées à quelque
+chose que `NSTableView` savait déjà faire.
+
+- **Le tri laissait les sous-titres sur place.** `SortBy` reconstruisait dix tableaux parallèles
+  et oubliait le onzième : le texte changeait de ligne, le sous-titre restait à la sienne. Présent
+  depuis la 1.3.2, trouvé en relisant la méthode pour y ajouter les étiquettes. Même famille que
+  le défaut de `MoveRowModel` corrigé en septembre — un tableau parallèle ajouté sans faire le
+  tour des **six** endroits qui touchent au modèle.
+- **Les lecteurs qui manquaient** : `CellBackground`, `CellHasBackground`, `CellTextColor`,
+  `CellHasTextColor`, `CellBold`, `CellAlignment`, `CellVerticalAlignment`, `RowIcon`, `RowImage`,
+  `ColumnTitle`, `ColumnWidth`, `ColumnKind`, `ColumnAlignment`, `ColumnVerticalAlignment`. Une
+  API qui écrit sans relire oblige l'appelant à tenir son propre registre, et deux registres
+  finissent par diverger.
+- **Repérage** : `RowAtPoint`, `ColumnAtPoint`, `CellFrame`, aux coordonnées de la vue hôte,
+  origine en haut à gauche — celles de `MouseDown`. C'est ce qui manquait pour ouvrir un menu
+  contextuel sur la bonne ligne, la sélection ne suffisant pas.
+- **Défilement et encarts** : `ScrollPosition`, `ScrollPositionX`, `SetContentInsets`,
+  `ContentInsets`, `AutoHidesScrollers`, `HasVerticalScroller`, `HasHorizontalScroller`. Les
+  encarts servent surtout à une table posée sous une barre de titre translucide, dont la première
+  ligne naît sinon sous le flou.
+- **Sélection** : `AllowsEmptySelection` — à `False`, la table garde toujours une ligne choisie —
+  et `SelectAll`.
+- **Colonnes** : `SetColumnTitle` renomme sans recréer, `SetColumnVisible` et `ColumnVisible`
+  masquent sans décaler les indices.
+- **Étiquettes libres** : `SetRowTag`, `SetCellTag`, `SetColumnTag` et leurs lecteurs. Une
+  étiquette **voyage avec sa ligne** — tri, déplacement, insertion, suppression —, là où un
+  tableau parallèle tenu par l'appelant se décale au premier tri sans rien dire.
+- **Info-bulle par cellule** : `SetCellTooltip`, là où Xojo n'en a qu'une par contrôle.
+- **Case indéterminée** : `SetColumnAllowsMixedState`, `SetCellCheckState`, `CellCheckState`,
+  énumération `CheckStates`. `NSControlStateValueMixed` vaut **-1**, et non 2.
+- **Édition et grille** : `EditCell` ouvre l'éditeur d'une cellule depuis le code,
+  `SetGridColor` et `ClearGridColor` teintent les traits de grille.
+- **Texte et fichiers délimités** : `Content` en lecture et en écriture, `ImportDelimited` et
+  `ExportDelimited` avec les guillemets du RFC 4180 dans les deux sens.
+- 102 classes, 844 méthodes publiques, 62 pièges documentés.
+
+La page Tableau de la démonstration montre les quatre qui se voient : l'info-bulle de cellule,
+la case indéterminée, la colonne masquée et les encarts de contenu.
+
+Le contrôle plaçable n'expose rien de neuf dans l'Inspecteur : tout cela s'appelle sur la table
+qu'il héberge, par `Table()`. Relevé en lisant l'API de la `DesktopTable` que Xojo 2026r3 ajoute
+à son framework — ce qui manquait chez nous y était nommé.
+
+
 ## 1.4.0 — 14 octobre 2026
 
 **Une ligne peut sortir de la table sans que la table se réordonne.**

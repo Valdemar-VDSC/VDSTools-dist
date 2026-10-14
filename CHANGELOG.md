@@ -1,6 +1,6 @@
 # Journal des versions
 
-## 1.5.0 — à paraître
+## 1.5.0 — 14 octobre 2026
 
 **Tout ce que le tableau ne savait pas encore faire.** Quarante-six méthodes et sept propriétés de
 plus sur `NativeTableView` — les trous de son API comblés, un défaut du tri trouvé en les
@@ -69,14 +69,70 @@ lignes, et seulement si le réordonnancement était permis.
   rendrait que la première.
 - **Un dépôt venu du dehors est une COPIE.** Ce qui vient d'ailleurs n'est pas à nous, et une autre
   application ne doit pas voir son élément s'en aller ; le réordonnancement reste un déplacement.
+- **Le type privé du glisser est propre à CHAQUE table**, non à la classe — un défaut endormi
+  depuis la 1.1.0, trouvé en écrivant la démonstration à deux tables. Une constante de classe
+  faisait écrire le même type aux deux : glisser une ligne de l'une vers l'autre faisait prendre
+  le glisser pour un réordonnancement interne, et l'indice écrit par la table de départ était lu
+  comme un indice de la table d'arrivée. Conséquence voulue : pour faire passer une ligne d'une
+  table à l'autre, on écrit un **type public** dans `WritingRow` et l'autre le relit par
+  `DragText` — les deux tables ne savent alors rien l'une de l'autre, et la même ligne se dépose
+  aussi bien dans TextEdit. Vaut aussi pour deux arborescences.
 - **L'arborescence refuse** un dépôt venu du dehors : ses méthodes de source lui sont propres, à
   nœud et indice d'enfant plutôt qu'à ligne. Rien ne plante, le curseur dit non.
 
-La page Tableau de la démonstration l'accepte désormais : déposez un fichier depuis le Finder ou
-du texte depuis TextEdit, sur une ligne ou entre deux, et le pied de page dit ce qui est arrivé et
-où. Le branchement passe par `AddHandler PGTbl.Table.AcceptDrop`.
+### Trois demandes d'acheteur, hors tableau
 
-**102 classes, 851 méthodes publiques, 62 pièges documentés.**
+- **`NativeMenuToolbarItem.OpensMenuOnClick`** : un menu déroulant PUR, dont le clic ouvre le menu
+  au lieu de déclencher une action et de réserver le menu à l'appui prolongé — le bouton de tri de
+  Mail. Tout tient à l'action : AppKit fait du `NSMenuToolbarItem` un bouton à deux temps dès
+  qu'il en a une. La propriété la retire, et **rétablit le chevron en le faisant passer par son
+  contraire** : sans cet aller-retour, AppKit le dessine alors même que `ShowsIndicator` est à
+  `False`. Relevé par l'acheteur, reproduit ici.
+- **`SetIcon` accepte un poids et une échelle de symbole**, par deux énumérations `SymbolWeights`
+  et `SymbolScales`. **Pas un `Double`**, comme la demande le proposait : `NSFontWeightRegular`
+  vaut ZÉRO, et un défaut à zéro ne pourrait pas distinguer « poids ordinaire » de « ne touche à
+  rien ». Les neuf poids sont **lus** sur les constantes exportées d'AppKit, par la nouvelle
+  `Cocoa.ExportedDouble`, plutôt que recopiés.
+- **La démonstration les montre** : page Barre d'outils de la fenêtre principale, deux cases de
+  plus — le clic qui ouvre le menu, et le symbole en poids léger — à côté de celle qui existait
+  pour le chevron.
+- **Le silence d'`ObjCClass` est rompu.** Greffer une méthode sur une classe créée à l'exécution
+  qui la porte déjà ne faisait rien, sans un mot — et c'est ce qui a coûté deux versions à un
+  acheteur dont l'enveloppe de `pasteboardWriterForRow:` tenait le nom `VDSTableDS` : la nôtre
+  n'était jamais posée et `WritingRow` ne partait jamais. La bibliothèque le dit maintenant dans
+  le journal, et c'est le **63ᵉ piège** documenté.
+
+La page Tableau de la démonstration porte maintenant **deux tables** : la grande, et une liste
+étroite « Terminées » à côté, avec un mot d'explication sous elle plutôt qu'au bas de la page.
+Une tâche passe de l'une à l'autre et revient, sur une ligne ou entre deux ; la petite **refuse au
+survol** ce qu'elle a déjà, ce qui montre `ShouldRefuseDrop` à l'œuvre.
+
+Et elle arrive **telle qu'on l'a prise** — icône et sous-titre compris. L'élément glissé porte
+**deux saveurs** : `public.utf8-plain-text` pour le reste du monde, qui ne sait prendre qu'une
+chaîne, et un type à nous qui porte le titre, le sous-titre et le nom de l'icône. Chacun prend ce
+qu'il sait lire : TextEdit reçoit le titre seul, l'autre table reçoit la tâche entière. C'est à
+cela que sert le second paramètre d'`AddDragType`, et l'`uti` de `DragText`. La démonstration y
+emploie `CellSubtitle` et `RowIcon`, deux des lecteurs ajoutés plus haut.
+
+Un fichier du Finder et du texte de TextEdit arrivent aussi, et les branchements passent par
+`AddHandler maTable.Table.AcceptDrop`, le contrôle plaçable ne relayant pas ces événements.
+
+L'application ouvre désormais **ses deux fenêtres** au lancement, la principale devant.
+
+**102 classes, 853 méthodes publiques, 63 pièges documentés.**
+
+### Et la suite, déjà nommée
+
+**La 1.6.0 sera « le modèle ».** Tout ce qui précède est ADDITIF — aucune signature ne change,
+rien de ce qui compilait hier ne compile autrement, et les deux seules corrections sont nommées
+plus haut. La prochaine, elle, refera le dessous du tableau : les seize tableaux parallèles qui
+rangent le texte, les styles, les étiquettes et les icônes deviendront une liste de lignes à
+**identifiant**, et ces attributs suivront leur ligne par construction plutôt que par discipline.
+Les signatures publiques ne bougeront pas davantage — elles prendront toujours un rang —, mais le
+dessous sera neuf, et il vaut mieux que cela porte son propre numéro.
+
+C'est ce qui ouvrira la **source de données virtuelle** : une table qui ne garde plus ses lignes
+et les demande à l'application, pour les listes qui se comptent en centaines de milliers.
 
 
 ## 1.4.0 — 14 octobre 2026

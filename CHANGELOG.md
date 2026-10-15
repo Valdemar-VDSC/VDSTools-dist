@@ -1,5 +1,38 @@
 # Journal des versions
 
+## 1.5.1 — 15 octobre 2026
+
+**Deux corrections, aucune fonction nouvelle** — cette fois le troisième chiffre dit ce qu'il dit
+d'habitude.
+
+- **Le journal d'`ObjCClass` ne parlait pas au bon moment.** Ajouté la veille pour signaler qu'une
+  méthode greffée sur une classe créée à l'exécution ne remplace pas celle qui s'y trouve déjà, il
+  parlait **dans les deux cas** : quand une autre implémentation avait pris la place, et quand
+  c'était simplement la nôtre, posée par une instance précédente de la même classe. Un acheteur a
+  compté des dizaines de lignes à l'ouverture de deux fenêtres — `VDSButtonTarget`,
+  `VDSTextFieldTarget`, `VDSFlippedView`… — avec au milieu la seule qui le concernait. La
+  bibliothèque **compare désormais les implémentations** : elle se tait quand celle en place est
+  la sienne, et nomme la classe et le sélecteur quand elle diffère.
+- **Le 63ᵉ piège est réécrit.** Il reposait sur un cas d'acheteur dont il n'était pas la cause :
+  l'intéressé a mesuré que son enveloppe n'était pas dans le projet lors de l'exécution en
+  question. Le mécanisme, lui, est réel et reste décrit — une classe créée à l'exécution
+  n'appartient à personne, et une application qui greffe sur les nôtres prend la place sans que
+  nous le sachions. Ce qui a été retiré, c'est l'attribution.
+- **Un avertissement de la 1.5.0 blâmait le bon usage.** `OpensMenuOnClick` posée AVANT l'ajout de
+  l'item à la barre — ce que la référence conseille et ce que la démonstration fait — écrivait
+  « no remembered target » dans le journal au lancement : la barre n'avait encore rien câblé, donc
+  il n'y avait rien à reposer. Le cas est maintenant silencieux. **Et il cachait un vrai trou** :
+  la barre ne retenait sa cible que pour les items qui répondent au clic, si bien qu'un menu
+  déroulant ajouté tel quel ne pouvait plus jamais redevenir un bouton d'action — il n'avait
+  jamais vu la cible. Elle est désormais retenue par tout item ajouté.
+- **`SymbolWeights` et `SymbolScales` étaient nommées sans être documentées** : la signature de
+  `SetIcon` les citait, la liste des énumérations de `NativeToolbarItem` ne montrait
+  qu'`ItemStyles`. Les valeurs des deux y figurent maintenant. Signalé par le même acheteur, qui
+  a trouvé `SymbolWeights.Light` en essayant.
+
+Rien d'autre ne change : aucune signature, aucun comportement.
+
+
 ## 1.5.0 — 14 octobre 2026
 
 **Tout ce que le tableau ne savait pas encore faire.** Quarante-six méthodes et sept propriétés de

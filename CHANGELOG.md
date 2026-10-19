@@ -1,5 +1,90 @@
 # Journal des versions
 
+## 1.6.0 — 19 octobre 2026 : « le modèle »
+
+**Le dessous du tableau est refait, et rien au-dessus ne bouge.** Aucune signature n'a changé,
+aucune méthode n'a été ajoutée ni retirée : les 39 méthodes publiques qui prennent un rang le
+prennent toujours. Une seule propriété s'ajoute, le tri naturel, et elle est éteinte par défaut. Ce qui change est ce qu'il y a dessous — et pourquoi trois défauts de la même
+famille ne peuvent plus se produire.
+
+- **Seize tableaux parallèles deviennent une liste de lignes.** Le texte, les sous-titres, les
+  info-bulles, les étiquettes, les deux couleurs et leurs drapeaux, le gras, les deux alignements
+  et leurs drapeaux, l'icône, l'image, l'étiquette de ligne : tout cela vivait dans seize tableaux
+  indexés par ligne × colonne. **Six endroits** devaient les parcourir tous — ajout, insertion,
+  suppression, vidage, déplacement, tri — et en oublier un ne se voyait qu'au premier tri, sur un
+  attribut et pas sur le texte. C'est arrivé **trois fois en deux mois** : `MoveRowModel` qui ne
+  recopiait que le texte et l'icône, `SortBy` qui oubliait les sous-titres de la 1.3.2 à la 1.5.0,
+  et les étiquettes qui ont failli suivre. Désormais une ligne est un objet, `NativeTableRow` :
+  la déplacer déplace tout ce qu'elle porte.
+- **`SortBy` et `MoveRowModel` rétrécissent de moitié** — il n'y a plus de tableaux à
+  reconstruire, seulement une liste à permuter.
+- **Chaque ligne porte un numéro jamais réutilisé.** Il n'est pas encore exposé : c'est le point
+  d'accroche de la source de données virtuelle, qui désignera les lignes par identifiant plutôt
+  que par rang.
+- **L'épreuve et le banc se déclenchent à la demande**, sous `#If DebugBuild` : ils n'existent
+  pas dans une application construite, et la démonstration distribuée ne les porte pas — la
+  leçon de la 1.3.1, où une boucle de mesure avait voyagé.
+- **Mesuré avant d'être publié**, et le résultat a décidé de la forme. Un banc remplit, trie,
+  insère et vide une table de 1 000, 10 000 puis 100 000 lignes, sur la 1.5.1 puis sur chaque
+  mouture de la 1.6.0. À 100 000 lignes et cinq colonnes :
+
+  | | 1.5.1 (plat) | objet | + paresse | **1.6.0 publiée** |
+  |---|---:|---:|---:|---:|
+  | Remplissage | 423,6 ms | 507,7 | 310,4 | **284,6 ms** |
+  | Tri | 471,3 ms | 127,3 | 128,2 | **117,4 ms** |
+  | 100 insertions au milieu | 126,0 ms | 12,6 | 11,4 | **9,7 ms** |
+  | Vidage | 4,7 ms | 62,4 | 40,7 | 10,4 ms |
+  | Mémoire | 64,2 Mo | 218,3 | 145,3 | **40,1 Mo** |
+
+  La dernière colonne est mesurée **sur le code livré**, gardes comprises ; trois passes
+  antérieures donnaient 275 à 285 ms et 40,1 à 40,2 Mo.
+
+  La première mouture **triplait la mémoire** : treize petits tableaux par ligne, et l'en-tête
+  d'un tableau coûte plus que ses cinq cases. Ne les remplir qu'à la demande en a rendu un
+  tiers ; il a fallu les sortir dans un **objet de style créé à la première écriture** pour que
+  le reste parte. Une ligne ordinaire porte désormais deux objets — elle-même et son texte — là
+  où le modèle plat allouait le style de chaque cellule, utilisé ou non.
+- **Un défaut ancien, trouvé par l'épreuve sans l'avoir cherché — dans la table ET dans
+  l'arborescence.** `InsertRow`, `RemoveRow`, `MoveRow` d'un côté, `InsertNode`, `RemoveNode`,
+  `MoveNode` de l'autre, appelaient AppKit sans vérifier qu'il partageait le décompte du modèle.
+  Or `AddRow` et `AddNode` ne touchent que le modèle — c'est ce qui les rend rapides dans une
+  boucle, à charge pour l'appelant d'appeler `Reload` à la fin. Quelques ajouts puis une opération
+  animée **sans** `Reload` annonçaient donc à AppKit un changement sur des lignes ou des enfants
+  dont il ignorait l'existence : il levait une exception. Et une exception **Objective-C**
+  traverse le `Try` de Xojo comme s'il n'existait pas — elle remontait jusqu'au gestionnaire
+  d'AppKit, qui l'inscrivait au journal système et **abandonnait en silence** l'événement Xojo en
+  cours. Ni dialogue, ni plantage, ni rapport. **19 exceptions sur la session avant la
+  correction, aucune après.** C'est le **64ᵉ piège** documenté.
+- **La première correction de l'arborescence était fausse, et c'est le 65ᵉ piège.** Pour savoir
+  si AppKit était en retard, elle lui demandait `numberOfChildrenOfItem:` — qui **interroge la
+  source de données**, donc rend le décompte du modèle. La garde comparait le modèle à lui-même
+  et disait toujours oui ; l'épreuve est tombée sur un déplacement. Mesuré au même instant :
+  `numberOfRows` rendait 3, `numberOfChildrenOfItem:` rendait 6. La table se garde désormais par
+  `numberOfRows`, qui rend bien ce qu'AppKit tient ; l'arborescence tient elle-même un drapeau,
+  levé par `AddNode` et baissé par un `Reload` complet. **Un scénario déterministe reproduit le
+  défaut dans chacune — AppKit à 3, modèle à 6 — et passe.**
+- **Et vérifié avant d'être publié** : une épreuve aléatoire — 400 opérations, **7 125
+  vérifications d'attribut**, cinq familles relues sur chaque ligne à chaque tour — ne relève
+  aucun écart. C'est elle qui prouve la promesse de cette version ; le reste n'est que vitesse.
+- **Le tri naturel, en option : `SortsNaturally`.** Le tri par défaut est alphabétique : il range
+  « Tâche 10 » avant « Tâche 2 », et « Tâche 100000 » entre 100 et 101. Coché, il lit chaque
+  suite de chiffres comme un nombre, comme le Finder et les tables d'une application Swift. Il
+  est **éteint par défaut** — le tri d'hier reste celui d'aujourd'hui tant qu'on ne le demande
+  pas —, réglable aussi dans l'Inspecteur de `NativeTableViewControl`, et une table déjà triée
+  par un clic d'en-tête se retrie aussitôt, en levant `SortChanged` d'abord. Une clé par ligne
+  plutôt qu'un comparateur : `localizedStandardCompare:` aurait demandé quelque 1,7 million
+  d'appels pour 100 000 lignes.
+- **La démonstration le montre** : un bouton **« 100 000 lignes »** sur la page Tableau remplit
+  la table par `AddTableRow` puis un seul `Reload` et affiche le temps pris. On trie ensuite par
+  « Tâche », on coche **Tri naturel** juste dessous, et l'ordre se corrige sous les yeux. Un
+  second clic sur le bouton rétablit les cinq tâches.
+- 104 classes, 853 méthodes publiques, 65 pièges documentés.
+
+**Ce qu'un acheteur doit en attendre : rien, sauf s'il coche le tri naturel.** Si quelque chose
+change pour vous dans cette version, c'est un défaut — signalez-le, il sera corrigé en priorité. C'est précisément pour
+pouvoir dire cela que ce chantier a sa propre version, séparée des ajouts de la 1.5.0.
+
+
 ## 1.5.1 — 15 octobre 2026
 
 **Deux corrections, aucune fonction nouvelle** — cette fois le troisième chiffre dit ce qu'il dit

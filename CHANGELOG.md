@@ -1,5 +1,65 @@
 # Journal des versions
 
+## 1.6.1 — 20 octobre 2026
+
+**Des images qui ne sont pas des symboles, et le balayage de Mail.** Trois demandes d'un même
+acheteur, qui construit une application de guides illustrés avec VDSTools. Aucune signature
+existante ne change : tout s'ajoute, ou prend un paramètre facultatif.
+
+- **`NativeButton.SetPicture(source, pointSize)`** — et `NativeIconButtonControl.SetPicture`.
+  Un acheteur voyait un bouton de palette (`PushOnPushOff`, `AccessoryBar`) rester vide avec
+  une `Picture` tirée de PNG. **Une sonde dans la démonstration ne l'a pas reproduit** : huit
+  variantes — Picture gardée ou lâchée, avant ou après le type, avec ou sans `Refit`, hors
+  écran et à l'écran — ont toutes dessiné leur image. Elle a trouvé autre chose : une image de
+  32 pixels faisait **32 points et débordait** du bouton. Désormais `pointSize` fixe la taille,
+  et le bouton **réduit** une image trop grande (`ProportionallyDown`) au lieu de la laisser
+  dépasser. La conversion passe par le nouveau `Cocoa.ImageFromPicture`, le chemin qui marchait
+  chez lui.
+- **`Cocoa.ImageFromPicture(pic, pointSize)`** : une `Picture` en `NSImage` comme Apple les veut
+  — une taille en points, **une représentation par résolution**. Une Picture à plusieurs
+  résolutions garde son 1x et son 2x.
+- **Une image d'item de menu qui n'est pas un symbole.** `NativeMenu.AddItem(title, pic)` pour
+  une `Picture`, et **`AddItem(title, file)` pour l'icône que le Finder montre** d'un fichier ou
+  d'une application — ce qu'Apple recommande pour un menu « Déplacer vers » : toutes les
+  densités, rien à fabriquer. `SetPicture(index, pic)` et `SetFileIcon(index, file)` pour un
+  item existant, et `Cocoa.IconForFile` pour le reste. 16 points, visibles sous macOS 27.
+  *Attention :* `AddItem("titre", Nil)` ne se compile plus — Xojo ne sait pas choisir entre
+  Picture et FolderItem ; sans image, `AddItem("titre")` suffit.
+- **Les actions de balayage sur `NativeTableView`**, comme dans Mail et Notes. L'événement
+  `RowActions(row, edge)` demande les boutons d'un bord, `AddRowAction(title, symbol,
+  destructive, background)` les ajoute — plusieurs par bord, chacun de sa couleur s'il le faut —,
+  et `RowActionChosen(row, edge, index)` dit lequel a été cliqué. La
+  table ne supprime rien d'elle-même : c'est l'application qui appelle `RemoveRow`. **Le geste
+  complet valide la première action**, comme dans Mail — à condition que la ligne tienne
+  entière dans la vue (voir plus bas).
+- **`NativeTableView.SetColumnLevel(column, style, maximum, editable)`** : la jauge d'une colonne
+  `CellKinds.Level` prend les quatre styles de `NSLevelIndicator` — barre continue (par défaut),
+  barre en segments, pertinence, et **étoiles** (`Rating`). Éditable, elle se règle au clic, et
+  la valeur part dans `CellChanged` comme une case cochée. De quoi remplacer des étoiles
+  dessinées à la main par celles du système.
+  **Et par cellule** : `SetCellLevelStyle(row, column, style)` donne à une ligne un autre style
+  que celui de sa colonne — des étoiles ici, des segments là. Rangé dans la ligne comme
+  l'alignement d'une cellule, il la suit quand on trie.
+- **Corrigé dans la documentation** : la référence disait que `CopyOSHandle` rendait un objet
+  dont on devenait propriétaire — c'était faux depuis le 9 octobre ; et le commentaire de
+  `SetButtonType` affirmait que l'image était remise à zéro — la sonde a montré qu'elle survit.
+- **Dans la démonstration** : le bouton `AccessoryBar` de la planche des bezels porte une
+  Picture de 16 points ; le menu enrichi a un sous-menu « Déplacer vers » aux icônes de TextEdit,
+  Aperçu et Finder ; la grande table de la page Tableau propose **Épingler** et **Fait** en
+  balayant vers la droite, **Supprimer** vers la gauche. Sa dernière colonne
+  devient une **note** qu'on donne en cliquant — en étoiles, et sur trois lignes en segments,
+  en barre ou en traits de pertinence.
+- **Corrigé : `SetColumnVisible` laissait la table déborder.** Masquer une colonne fait combler
+  la place par la dernière — c'est voulu. Mais au retour de la colonne, la dernière restait
+  élargie, et une barre de défilement horizontale apparaissait. Elle reprend désormais la
+  largeur donnée à `AddColumn`.
+- **66ᵉ piège : une table qui défile horizontalement perd son balayage.** Les gestes
+  horizontaux vont aux boutons au lieu du défilement, et le geste complet ne valide plus rien.
+  Ce n'est pas une limite d'AppKit : la propriété existe (`allowsFullSwipe`, absente de
+  l'en-tête public, vraie par défaut) ; la table de la démonstration débordait de quelques
+  points. Ramenée dans sa largeur, tout a fonctionné.
+- 104 classes, 864 méthodes publiques, 66 pièges documentés.
+
 ## 1.6.0 — 19 octobre 2026 : « le modèle »
 
 **Le dessous du tableau est refait, et rien au-dessus ne bouge.** Aucune signature n'a changé,

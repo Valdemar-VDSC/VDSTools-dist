@@ -1,5 +1,33 @@
 # Journal des versions
 
+## 1.6.2 — 3 novembre 2026
+
+**Éteindre ce qui ne s'applique pas, et une bulle sous la barre d'outils.** Trois petits ajouts
+demandés par l'acheteur de la 1.6.1, qui construit avec nos contrôles un inspecteur à la manière
+du panneau Format de Pages. Rien d'existant ne change.
+
+- **`Enabled` sur chaque contrôle.** Seul `NativeButton` l'avait. Les quatorze autres l'ont
+  désormais, et la table aussi : `NativePopupButton`, `NativeSegmentedControl`, `NativeColorWell`, `NativeSwitch`,
+  `NativeSlider`, `NativeStepper`, `NativeTextField`, `NativeDatePicker`, `NativeComboBox`,
+  `NativeSearchField`, `NativeLevelIndicator`, `NativeTokenField`, `NativePathControl`,
+  `NativeComboButton`. Grisé, et sourd au clic comme au clavier.
+- **`NativeSegmentedControl.SetSegmentEnabled(index, enabled)`** et `IsSegmentEnabled` : un
+  segment éteint, les autres actifs — Pages grise « diminuer le retrait » à la marge gauche.
+- **Corrigé : un contrôle plaçable hébergé éteint restait cliquable.** Onze d'entre eux —
+  `NativeColorWellControl`, `NativeComboButtonControl`, `NativeDatePickerControl`,
+  `NativeLevelIndicatorControl`, `NativePathBarControl`, `NativeSearchFieldControl`,
+  `NativeSegmentedButtonControl`, `NativeStepperControl`, `NativeSwitchControl`,
+  `NativeTableViewControl`, `NativeTokenFieldControl` — laissaient leur contrôle AppKit allumé
+  sous un canevas éteint, dessiné comme actif et agissant. Ils suivent désormais leur `Enabled`
+  et offrent `SetEnabled`, comme `NativeIconButtonControl` depuis la 1.2.1. `NativeTableView` a
+  aussi gagné `Enabled`.
+- **`NativePopover.Show(item As NativeToolbarItem)`** : la bulle sous un bouton de barre
+  d'outils, comme le « Aa » de Notes. macOS 14 ; avant, la vue de l'item s'il en a une.
+- **Dans la démonstration** : le bouton Rétablir des segments momentanés est éteint ;
+  l'interrupteur de la bulle garnie éteint le taux de compression et le format ; et l'item
+  Dossier de la barre d'outils ouvre cette même bulle sous lui.
+- 104 classes, 878 méthodes publiques, 66 pièges documentés.
+
 ## 1.6.1 — 20 octobre 2026
 
 **Des images qui ne sont pas des symboles, et le balayage de Mail.** Trois demandes d'un même

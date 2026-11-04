@@ -1,5 +1,48 @@
 # Journal des versions
 
+## 1.6.3 — 4 novembre 2026
+
+**L'inspecteur.** Six petits ajouts et une classe, demandés par l'acheteur qui construit avec nos
+contrôles un inspecteur à la manière de Pages et une fenêtre Lire les informations. Aucune
+signature existante ne change : tout est méthode nouvelle ou paramètre optionnel.
+
+- **`ToolTip` sur chaque contrôle**, à côté d'`Enabled` : `NativeButton`, `NativePopupButton`,
+  `NativeSegmentedControl`, `NativeColorWell`, `NativeSwitch`, `NativeSlider`, `NativeStepper`,
+  `NativeTextField`, `NativeDatePicker`, `NativeComboBox`, `NativeSearchField`,
+  `NativeLevelIndicator`, `NativeTokenField`, `NativePathControl`, `NativeComboButton`. Et
+  **`NativeSegmentedControl.SetSegmentToolTip(index, text)`** : une infobulle par segment.
+- **La police de `NativeTextField`** : `FontSize` et `Bold`, et **`SetControlSize`**, qui règle
+  le gabarit ET la police — `Small` donne les 11 points d'un inspecteur. AppKit ne relie pas les
+  deux de lui-même.
+- **Un champ mot de passe** : `New NativeTextField("", NativeTextField.Bezels.Square, True)` crée
+  une `NSSecureTextField`, avec `Accepted`, `Changed` et le reste. `IsSecure` le dit.
+- **Une saisie qui compte en quittant le champ** : `NativeTextField.AcceptsOnEndEditing = True`
+  fait partir `Accepted` aussi sur Tab ou sur un clic ailleurs, et plus seulement sur Retour —
+  la saisie d'un inspecteur. Et un événement **`EditingEnded(text)`**, pour la sortie du champ
+  quelle qu'en soit la cause.
+- **Des images, des symboles et des polices dans les items de `NativePopupButton`** :
+  `SetItemPicture` pour une pastille de couleur, `SetItemSymbol` — sur le premier item d'un menu
+  déroulant, c'est l'icône du bouton, le « … » du Finder —, et `SetItemFont`, chaque police dans
+  sa propre face, comme le menu de Pages.
+- **`NativeStatusItem`** : un raccourci affiché sur un item (`AddMenuItem(title, key,
+  modifiers)`, avec `ModCommand`, `ModShift`, `ModOption`, `ModControl`), et le symbole à
+  l'échelle `Large` des extras du système (`SetSymbol(…, scale)`).
+- **Nouvelle classe `NativeScrollView`** : une `NSScrollView` autour d'une vue à soi, pour un
+  inspecteur plus haut que sa fenêtre. `UseFlippedDocument(height)` puis `AddView`, comme dans un
+  popover ; ou `SetDocumentView` pour une vue existante — un `MakeFlippedContainer` garni de
+  contrôles créés par `New`. La vue suit la largeur visible ; défilement vertical seul, sans
+  bordure ni fond, par défaut. Pas de `DesktopContainer` Xojo pour l'instant.
+- **Documenté** : `NativeSegmentedControl.SelectedIndex = -1` ne sélectionne aucun segment, pour
+  une valeur qui n'est aucun d'eux. Ça marchait déjà ; la référence ne le disait pas.
+- **Dans la démonstration** : la bulle « Réglages d'export » de la page Popover devient un
+  inspecteur plus haut qu'elle — destination, mot de passe et bouton Exporter sont en dessous, on
+  y descend en défilant. Des pastilles devant les couleurs, chaque police dans sa face et le
+  « … » du déroulant sur la page Boutons, menus et champs natifs ; une infobulle par segment et un segmenté sans
+  segment choisi ; et sur la page Grille et pile, le formulaire devient un inspecteur — titre en
+  gras, libellés à 11 points, un symbole par format, une destination qui compte dès qu'on quitte
+  le champ, un champ mot de passe, une infobulle sur chaque réglage. L'extra de la barre de menus montre ses raccourcis, à la grande échelle. Les extraits de l'inspecteur montrent chaque nouveauté avec son code.
+- 105 classes, 897 méthodes publiques, 66 pièges documentés.
+
 ## 1.6.2 — 3 novembre 2026
 
 **Éteindre ce qui ne s'applique pas, et une bulle sous la barre d'outils.** Trois petits ajouts

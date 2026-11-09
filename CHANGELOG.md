@@ -1,5 +1,78 @@
 # Journal des versions
 
+## 1.7.0 — 9 novembre 2026
+
+**Les tables.** `NativeTableView` gagne ce qu'il faut pour un vrai classeur de documents, et la
+démo une fenêtre **Classeur** (⌘5) qui s'enrichit à chaque ajout.
+
+- **`NativeTableView.CellClicked(row, column, x, y)`** : le clic simple, avec la cellule ET le
+  point dans la cellule, compté depuis son coin haut gauche — de quoi ouvrir un menu à l'endroit
+  cliqué. `row` et `column` sont ceux du modèle, quels que soient le tri et l'ordre des colonnes.
+- **`CellKinds.Image` : une image dans n'importe quelle colonne**, là où `SetRowImage` ne pose
+  qu'en tête de la première. `SetCellImage(row, column, picture)` pour une vignette à soi,
+  `SetCellSymbol(row, column, name)` pour un symbole système, teinté par `SetCellTextColor`.
+  Réduite sans se déformer, jamais agrandie, placée selon l'alignement de la cellule ; le texte
+  de la cellule devient ce que lit VoiceOver, et reste la clé du tri.
+- **`SetColumnWidths("44,84,*,90,10%")` : des largeurs qui suivent la fenêtre.** Des points,
+  des pourcentages de la largeur disponible, des parts de ce qui reste (`*`, `2*`), recalculés à
+  chaque redimensionnement ; la table remplit sa zone au point près. Un glisser dans l'en-tête
+  garde l'unité de la colonne — et sa largeur dans une fenêtre trop étroite, la table défilant
+  alors horizontalement —, et `ColumnWidths` rend l'expression du moment, à ranger dans les
+  préférences. `SetColumnWidth(column, width)` pose une largeur en points. Sans expression, rien
+  ne change.
+- **Lignes de section : `AddSectionRow(title)`**, la ligne de groupe d'AppKit — un titre sur toute
+  la largeur, collé en haut pendant que sa section défile. Elle ne se sélectionne pas (les flèches
+  la sautent), ne se glisse pas, ne lève aucun clic ; le tri par défaut trie à l'intérieur de
+  chaque section. `SetRowIsGroup` et `RowIsGroup` pour une ligne existante. Dans le Classeur, le
+  bouton « Grouper par type ».
+- **Colonnes figées : `FrozenColumns = 2`.** Les premières colonnes restent en place quand la
+  table défile de côté. Deux `NSTableView` sur un même modèle, la seconde posée en vue flottante
+  du même `NSScrollView` : le défilement vertical, inertie comprise, la sélection, le focus, le
+  tri, les largeurs, les sections et les opérations animées passent d'une moitié à l'autre, et
+  VoiceOver lit une seule table. Les indices de colonne ne changent pas, `Handle` non plus. Une
+  colonne se déplace d'un côté ou de l'autre de la frontière, jamais à travers. La partie figée
+  est opaque et ses colonnes gardent leur largeur sous une expression de largeur ; les sections
+  ne flottent pas tant que des colonnes sont figées. Le balayage des lignes se fait sur la partie
+  figée, qui tient toujours dans la vue : le geste complet y valide l'action, et sur les colonnes
+  qui défilent le geste horizontal fait défiler la table. Zéro par défaut : rien ne change pour
+  qui ne s'en sert pas. Dans le Classeur, l'aperçu et le nom.
+- **`ColumnAtPoint` rend la colonne du modèle**, et `CellFrame` la prend, même après un
+  déplacement de colonne par l'utilisateur. Les deux confondaient jusqu'ici l'ordre affiché et
+  celui du modèle.
+- **La barre latérale se recale seule.** Le style source-list élargit la liste au-delà de sa
+  zone visible ; `NativeSidebar` et `NativeOutlineSidebar` corrigent désormais d'elles-mêmes, à
+  l'ouverture comme à chaque changement de taille — diviseur, repli, fenêtre. L'appel à `Refit`
+  différé après l'ouverture n'est plus nécessaire ; il reste public et sans effet de bord.
+- **Un libellé de barre latérale trop long finit par « … »**. Il passait à la ligne, et la
+  seconde ligne tombait hors de la cellule : « Tous les documents » s'affichait « Tous les », sans
+  rien pour dire qu'il manquait un mot.
+
+**L'inspecteur, suite.** Sept ajouts demandés par le même acheteur que la 1.6.3, après son
+passage à la 1.6.3 : les declares qui lui restaient. Aucune signature existante ne change.
+
+- **`NativePopupButton.SetItemSystemFont(index, design)`** : New York, SF Rounded ou SF Mono,
+  les variantes de la police système, qui n'ont pas de nom de famille à donner à `SetItemFont`.
+- **`NativePopupButton.SetItemTitle(index, title)`** : renommer un item sur place, menu ouvert ou
+  non, en gardant son image et sa police.
+- **`NativePopupButton.SetItemSymbol` prend une description pour VoiceOver**, en troisième
+  paramètre optionnel ; sur l'icône d'un menu déroulant sans titre, c'est le nom du bouton.
+- **`NativeStatusItem.SetMenuItemShortcut(index, key, modifiers)`** : changer le raccourci d'un
+  item après coup, pour un raccourci que l'utilisateur enregistre.
+- **`NativeTextField.FontWeight` et `LabelColor`** : demi-gras, moyen ou toute autre graisse, et
+  les gris du système (secondaire, tertiaire…), qui suivent le mode sombre — le titre d'un groupe
+  sous le titre gras d'une section.
+- **`NativeButton.SetControlSize` règle aussi la police**, comme celui de `NativeTextField` : une
+  case `Small` d'une fenêtre Lire les informations prend ses 11 points. Elle gardait jusqu'ici la
+  police à 13 points.
+- **Comment on a quitté un champ, et y rester sur Tab** : `NativeTextField.EndedBy` dit Retour,
+  Tab, Maj-Tab, Échap ou un clic, dans `Accepted` comme dans `EditingEnded` ; l'événement
+  **`TabPressed(backward)`** garde le clavier dans le champ s'il renvoie True — le seul champ d'un
+  inspecteur, dont Tab filait vers le champ de recherche de la barre d'outils. Sans `nextKeyView`,
+  que macOS 27 réécrit de lui-même.
+- **La référence précise deux points** : le masque de redimensionnement de `NativeScrollView`,
+  qui vaut 0 quand on la pose à la main, et `SetItemPicture`, dont `pointSize` est le plus long
+  côté de l'image.
+
 ## 1.6.3 — 4 novembre 2026
 
 **L'inspecteur.** Six petits ajouts et une classe, demandés par l'acheteur qui construit avec nos

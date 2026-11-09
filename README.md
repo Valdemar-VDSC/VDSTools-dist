@@ -51,7 +51,9 @@ cher, avec leur symptôme, qui presque toujours pointe ailleurs que la cause.
 L'application de démonstration en est le complément vivant : **34 pages**, chacune montrant un
 sujet avec son extrait de code dans l'inspecteur, en français et en anglais. Une seconde
 fenêtre, **Contrôles plaçables** (Cmd+4), consacre une page à chacun des 28 contrôles qu'on
-pose dans l'IDE, avec toutes ses options réglables à chaud.
+pose dans l'IDE, avec toutes ses options réglables à chaud. Une troisième, **Classeur** (Cmd+5),
+montre la table de la 1.7.0 assemblée dans une fenêtre façon Mail : sections « Aujourd'hui »,
+vignettes, colonnes figées, largeurs qui suivent la fenêtre, menu au clic de cellule.
 
 ## Ce que ça apporte
 

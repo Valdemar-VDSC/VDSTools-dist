@@ -51,7 +51,9 @@ dearly, each with its symptom — which almost always points somewhere other tha
 The demo application is its living counterpart: **34 pages**, each showing one subject with its
 code excerpt in the inspector, in French and English. A second window, **Placeable controls**
 (Cmd+4), devotes a page to each of the 28 controls you drop in the IDE, with every option
-adjustable live.
+adjustable live. A third, **Binder** (Cmd+5), shows the 1.7.0 table put together in a Mail-like
+window: “Today” sections, thumbnails, frozen columns, widths that follow the window, a menu on
+cell click.
 
 ## What it brings
 

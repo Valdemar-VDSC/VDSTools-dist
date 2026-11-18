@@ -1,5 +1,42 @@
 # Journal des versions
 
+## 1.7.1 — 18 novembre 2026
+
+**La table façon Mail.** Demandée par un utilisateur, après son passage à la 1.7.0.
+Aucune signature existante ne change.
+
+- **`NativeTableView.SectionRowHeight`** : la hauteur des lignes de section, titre centré
+  dedans — des lignes de 62 points avec des sections de 24 ou 30, comme la liste de Mail. Zéro par
+  défaut : la hauteur qu'AppKit leur donne selon le style (28 points en FullWidth), jamais
+  `RowHeight`. La table ne répond à `tableView:heightOfRow:` que si elle est réglée ; mesuré sur
+  101 000 lignes, sans coût.
+- **`SectionFontWeight` et `SectionLabelColor`** : la graisse et la couleur du titre, avec les
+  types de `NativeTextField`. Les gris du système suivent le mode sombre, ce qu'une `Color` posée
+  sur la première colonne ne fait pas. Dans le Classeur : 24 points, demi-gras, gris secondaire.
+- **Les cellules façon Mail.** `SubtitleLines` donne au sous-titre d'une cellule `Subtitle` deux
+  ou trois lignes, la dernière finie par « … » ; `SubtitleTopInset` met de l'air au-dessus du
+  titre. `SeparatorStyle = Separators.Inset` trace un filet entre les lignes, décalé jusqu'au
+  texte (`SeparatorInset`, ou de lui-même au début de la première colonne de texte), masqué à côté
+  de la sélection, autour des sections et sous la dernière ligne ; il suit le mode sombre et
+  court sans rupture entre la partie figée et celle qui défile.
+- **Le Classeur devient une liste façon Mail** : l'aperçu de chaque document sur deux lignes sous
+  son nom, des filets au lieu des couleurs alternées. Son entrée du menu Démo s'appelle désormais
+  **Classeur - NSTable** (**NSTable Demo** en anglais).
+
+**Corrigé.**
+
+- **Le titre de section était rogné par le haut** quand `RowHeight` dépassait la hauteur d'une
+  section : 13 points perdus avec des lignes de 62. Il reste centré, quelle que soit la hauteur.
+- **En mode sombre, la partie figée d'une table** avait un fond plus foncé que le reste — sur
+  les sections et l'espace qui les précède — et **un en-tête noir**. Elle rend désormais le pixel
+  exact de la table, teinte du fond d'écran comprise, en clair comme en sombre.
+- **Un cadre bleu entourait la partie figée** d'une table dès qu'on cliquait sur ses colonnes :
+  l'anneau de focus de la table figée. Il ne s'affiche plus, comme pour la table principale.
+- **Les pastilles de `NativeSidebar` étaient illisibles en mode sombre** : leur fond restait dans
+  l'apparence où la cellule avait été construite. Elles suivent maintenant le passage clair/sombre.
+- **Un piège de plus dans la référence**, le 67ᵉ : une couleur du système traduite en `CGColor`
+  reste dans l'apparence du moment et perd la teinte du fond d'écran.
+
 ## 1.7.0 — 9 novembre 2026
 
 **Les tables.** `NativeTableView` gagne ce qu'il faut pour un vrai classeur de documents, et la

@@ -1,5 +1,30 @@
 # Journal des versions
 
+## 1.7.2 — 19 novembre 2026
+
+**Le filet, l'icône et le repli.** Trois retouches demandées après la 1.7.1. Aucune signature
+existante ne change.
+
+- **L'icône de ligne au niveau du titre** dans une cellule `Subtitle` dès que `SubtitleLines`
+  vaut 2 ou 3, comme les drapeaux et les marques de Mail ; elle était centrée dans la ligne,
+  entre le titre et la seconde ligne du sous-titre. Sur une ligne de sous-titre, rien ne change.
+- **`NativeWindowChrome.SetCanCollapse(area, allow)`** : la barre latérale ou l'inspecteur
+  peut-il se replier. À `False`, le glisser s'arrête à la largeur minimale — pour une
+  application sans bouton de barre latérale, où un volet replié par le glisser ne revenait plus.
+  `ToggleSidebar` ne la replie plus non plus. `True` par défaut, comme avant.
+
+**Corrigé.**
+
+- **Le filet façon Mail passait sous l'icône de ligne** : à `SeparatorInset = 0`, il partait du
+  début de la colonne, avant l'icône de `SetRowIcon` ou `SetRowImage`, et il fallait poser un
+  retrait à la main, faux dès que l'icône ou le style changeait. Il part désormais du texte, lu
+  dans la ligne elle-même, après l'icône, quel que soit le style.
+- **Le filet courait jusqu'au bord de la table.** Il finit maintenant là où finit la sélection :
+  à la même marge qu'elle en style Inset, comme Mail, au bord en FullWidth. Mesuré au pixel, en
+  clair et en sombre, avec et sans colonne figée.
+- La référence précise que `SeparatorInset` compte depuis le bord de la table, et non de la
+  colonne.
+
 ## 1.7.1 — 18 novembre 2026
 
 **La table façon Mail.** Demandée par un utilisateur, après son passage à la 1.7.0.
